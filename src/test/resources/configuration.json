@@ -1,0 +1,11 @@
+{
+  "engLang": "--lang=en-us",
+  "explicitWaitTime": "5",
+  "implicitWaitTime": "5",
+  "maximizedWindow": "--start-maximized",
+  "mainPageURL": "https://demoqa.com/",
+  "chromeBrowser": "chrome",
+  "firefoxBrowser": "firefox",
+  "testcase1_data": "src/test/resources/test_case1_data.json",
+  "testcase2_data": "src/test/resources/test_case2_data.json"
+}

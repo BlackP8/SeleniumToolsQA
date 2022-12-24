@@ -1,0 +1,25 @@
+mainpage
+//*[@class='category-cards']
+
+test case 1
+alerts main btn = //*[@class='card mt-4 top-card']//*[contains(text(),'Alerts')]
+//*[contains(text(),'Alerts')]//ancestor-or-self::*[@class='card mt-4 top-card']
+alerts btn = //*[@id='item-1']//*[contains(text(), 'Alerts')]
+alerts form = //*[@id='javascriptAlertsWrapper']
+see alert btn = //*[@id='alertButton']
+
+confirm btn = //*[@id='confirmButton']
+confirm text = //*[@id='confirmResult']
+
+promt btn = //*[@id='promtButton']
+promt text = //*[@id='promptResult']
+----------------------------------------
+
+test case 2
+nested frames btn = //*[@id='item-3']//*[contains(text(), 'Nested')]
+nested frame = //*[@id='frame1']
+frames btn = //*[@id='item-2']//*[contains(text(), 'Frames')]
+frames from = //*[@id='framesWrapper']
+frame text = //*[@id='sampleHeading']
+
+

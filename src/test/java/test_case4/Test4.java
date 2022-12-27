@@ -2,12 +2,12 @@ package test_case4;
 
 import framework.base.BaseTest;
 import framework.utilities.data_provider.DataProviderUtil;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import page_objects.*;
+import steps.AssertSteps;
+import steps.Steps;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,34 +15,31 @@ import java.util.List;
  */
 public class Test4 extends BaseTest {
     @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
-    public void handlesTest(HashMap<String, String> hashMap) {
-//        ConfigManager.setTestData(ConfigManager.getConfProperty("testcase2_data"));
-        MainPage mainPage = new MainPage();
-        Assert.assertTrue(mainPage.checkMainPage(), "Главная страница не открылась.");
+    public void handlesTest(String urlText, String samplePageText) {
+        AssertSteps.checkMainPage();
 
-        mainPage.clickAlertsBtn();
-        AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
-        alertsWindowsPage.clickBrowserWindowsBtn();
+        Steps.clickAlertsFrameWindowsBtn();
+        Steps.clickBrowserBtn();
         BrowserWindowsPage windowsPage = new BrowserWindowsPage();
-        Assert.assertTrue(windowsPage.checkBrowserWindowsPage(), "Страница с формой Browser Windows не открылась.");
+        AssertSteps.checkForm(windowsPage.checkBrowserWindowsPage());
 
-        windowsPage.clickNewTabBtn();
-        List<String> list = new ArrayList<>(hashMap.values());
-        SamplePage samplePage = new SamplePage();
-        Assert.assertTrue(samplePage.checkPageText(list), "Новая вкладка /sample со страницей sample page не открылась.");
+        Steps.clickNewTabBtn();
+        List<String> listValues = new ArrayList<>();
+        listValues.add(urlText);
+        listValues.add(samplePageText);
+        AssertSteps.checkSamplePageText(listValues);
 
-        windowsPage.closeTab();
-        Assert.assertTrue(windowsPage.checkBrowserWindowsPage(), "Страница с формой Browser Windows не открылась.");
+        Steps.closeSamplePage();
+        AssertSteps.checkForm(windowsPage.checkBrowserWindowsPage());
 
-        windowsPage.clickLinksBtn();
+        Steps.clickLinksButton();
         LinksPage linksPage = new LinksPage();
-        Assert.assertTrue(linksPage.checkLinksPage(), "Страница с формой Links не открыта.");
+        AssertSteps.checkForm(linksPage.checkLinksPage());
 
-        linksPage.clickHomeBtn();
-        linksPage.changeTab();
-        Assert.assertTrue(mainPage.checkMainPage(), "Новая вкладка с главной страницей не открыта.");
+        Steps.goHomeLink();
+        AssertSteps.checkMainPage();
 
-        mainPage.changeTab();
-        Assert.assertTrue(linksPage.checkLinksPage(), "Страница с формой Links не открыта.");
+        Steps.switchOnMainPage();
+        AssertSteps.checkForm(linksPage.checkLinksPage());
     }
 }

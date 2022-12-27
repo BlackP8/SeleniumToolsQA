@@ -8,7 +8,8 @@ import framework.base.BaseElement;
 public class Button extends BaseElement {
     private static String locator;
 
-    public Button(String locator) {
-        super(locator);
+
+    public Button(String locator, String name) {
+        super(locator, name);
     }
 }

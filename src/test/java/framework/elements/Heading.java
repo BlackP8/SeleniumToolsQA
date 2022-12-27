@@ -8,6 +8,11 @@ import framework.base.BaseElement;
 public class Heading extends BaseElement {
     private static String locator;
 
+
+    public Heading(String locator, String name) {
+        super(locator, name);
+    }
+
     public Heading(String locator) {
         super(locator);
     }

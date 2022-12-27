@@ -1,54 +1,52 @@
 package test_case1;
 
 import framework.base.BaseTest;
+import framework.logger.Log;
 import framework.utilities.data_provider.DataProviderUtil;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import page_objects.AlertsPage;
-import page_objects.AlertsWindowsPage;
-import page_objects.MainPage;
+import steps.AssertSteps;
+import steps.Steps;
 
-import java.util.HashMap;
 
 /**
  * @author Pavel Romanov 22.12.2022
  */
 public class Test1 extends BaseTest {
     @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
-    public void alertsTest(HashMap<String, String> hashMap) {
-//        ConfigManager.setTestData(ConfigManager.getConfProperty("test_case1_data"));
-        MainPage mainPage = new MainPage();
-        Assert.assertTrue(mainPage.checkMainPage(), "Главная страница не открылась.");
+    public void alertsTest(String alertBtnText, String confirmAlertText, String promptBoxText, String confirmBoxText) {
+        Log.logTestSteps("Выполняем первый шаг.");
+        AssertSteps.checkMainPage();
 
-        mainPage.clickAlertsBtn();
-        AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
-        alertsWindowsPage.clickAlertsMenuBtn();
+        Log.logTestSteps("Выполняем второй шаг.");
+        Steps.clickAlertsFrameWindowsBtn();
         AlertsPage alertsPage = new AlertsPage();
-        Assert.assertTrue(alertsPage.checkAlertsForm(), "Форма Alerts не появилась.");
+        AssertSteps.checkForm(alertsPage.checkAlertsForm());
 
-        alertsPage.clickSeeAlertBtn();
-        Assert.assertTrue(alertsPage.checkAlertText(hashMap.get("clickAlertBtnText")),
-                "Алерт с текстом \"You clicked a button\" не открылся.");
+        Log.logTestSteps("Выполняем третий шаг.");
+        Steps.clickSeeAlertBtn();
+        AssertSteps.checkAlert(alertBtnText);
 
-        alertsPage.clickOk();
-        Assert.assertTrue(alertsPage.checkClosed(), "Alert не закрылся.");
+        Log.logTestSteps("Выполняем четвертый шаг.");
+        Steps.clickAlertOk();
+        AssertSteps.checkAlertClosed();
 
-        alertsPage.clickConfirmBtn();
-        Assert.assertTrue(alertsPage.checkAlertText(hashMap.get("confirmAlertText")),
-                "Алерт с текстом \"Do you confirm action?\" не открылся.");
+        Log.logTestSteps("Выполняем пятый шаг.");
+        Steps.clickConfirmBoxBtn();
+        AssertSteps.checkAlert(confirmAlertText);
 
-        alertsPage.clickOk();
-        Assert.assertTrue(alertsPage.checkClosed(), "Alert не закрылся.");
-        Assert.assertTrue(alertsPage.checkButtonInscription(hashMap.get("buttonInscription")),
-                "Рядом с кнопкой не появилась надпись \"You selected Ok\"");
+        Log.logTestSteps("Выполняем шестой шаг.");
+        Steps.clickAlertOk();
+        AssertSteps.checkAlertClosed();
+        AssertSteps.checkBtnText(confirmBoxText);
 
-        alertsPage.clickPromptBtn();
-        Assert.assertTrue(alertsPage.checkAlertText(hashMap.get("promptAlertText")),
-                "Алерт с текстом \"Please enter your name\" не открылся.");
+        Log.logTestSteps("Выполняем седьмой шаг.");
+        Steps.clickPromptBtn();
+        AssertSteps.checkAlert(promptBoxText);
 
-        alertsPage.enterRandomText();
-        alertsPage.clickOk();
-        Assert.assertTrue(alertsPage.checkClosed(), "Alert не закрылся.");
-        Assert.assertTrue(alertsPage.compareText(), "Рядом с кнопкой не появилась надпись.");
+        Log.logTestSteps("Выполняем восьмой шаг.");
+        Steps.enterRandomText();
+        AssertSteps.checkAlertClosed();
+        AssertSteps.compareAlertText();
     }
 }

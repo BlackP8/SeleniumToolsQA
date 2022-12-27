@@ -1,6 +1,6 @@
 package framework.utilities.wait_util;
 
-import framework.utilities.config_util.ConfigManager;
+import config_util.ConfigManager;
 import framework.driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

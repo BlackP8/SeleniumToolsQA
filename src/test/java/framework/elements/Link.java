@@ -8,7 +8,8 @@ import framework.base.BaseElement;
 public class Link extends BaseElement {
     private static String locator;
 
-    public Link(String locator) {
-        super(locator);
+
+    public Link(String locator, String name) {
+        super(locator, name);
     }
 }

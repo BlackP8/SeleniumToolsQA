@@ -1,6 +1,6 @@
 package framework.base;
 
-import framework.utilities.config_util.ConfigManager;
+import config_util.ConfigManager;
 import framework.driver.BrowserFactory;
 import framework.driver.DriverManager;
 import org.testng.annotations.*;
@@ -10,6 +10,7 @@ import org.testng.annotations.*;
  */
 public abstract class BaseTest {
     private static String mainPageURL;
+    private static String marker = "TEST_STEPS";
 
     @BeforeClass
     public void setup() {

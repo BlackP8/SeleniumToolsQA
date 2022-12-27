@@ -1,6 +1,6 @@
 package framework.driver;
 
-import framework.utilities.config_util.ConfigManager;
+import config_util.ConfigManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

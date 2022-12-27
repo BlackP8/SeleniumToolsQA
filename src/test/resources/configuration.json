@@ -1,6 +1,6 @@
 {
   "engLang": "--lang=en-us",
-  "explicitWaitTime": "5",
+  "explicitWaitTime": "10",
   "implicitWaitTime": "5",
   "maximizedWindow": "--start-maximized",
   "mainPageURL": "https://demoqa.com/",

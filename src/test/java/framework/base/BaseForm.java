@@ -1,6 +1,7 @@
 package framework.base;
 
 import framework.driver.DriverManager;
+import framework.utilities.wait_util.WaitUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -9,11 +10,10 @@ import org.openqa.selenium.WebElement;
  */
 public abstract class BaseForm {
 
-    public BaseForm() {
-    }
+    public BaseForm() { }
 
     protected static boolean checkPage(String identifier) {
-        WebElement expectedEl = DriverManager.getDriver().findElement(By.xpath(identifier));
+        WebElement expectedEl = WaitUtil.setPresenceWait(identifier);
         return expectedEl.isDisplayed();
     }
 }

@@ -3,12 +3,13 @@ package framework.elements;
 import framework.base.BaseElement;
 
 /**
- * @author Pavel Romanov 23.12.2022
+ * @author Pavel Romanov 27.12.2022
  */
-public class Span extends BaseElement {
+public class MarkedList extends BaseElement {
     private static String locator;
 
-    public Span(String locator, String name) {
+
+    public MarkedList(String locator, String name) {
         super(locator, name);
     }
 }

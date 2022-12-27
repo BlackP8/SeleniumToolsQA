@@ -7,7 +7,7 @@ import org.openqa.selenium.Alert;
 /**
  * @author Pavel Romanov 23.12.2022
  */
-public class AlertUtil {
+public class AlertUtility {
     private static Alert alert;
 
     public static boolean checkAlert(String expectedText) {

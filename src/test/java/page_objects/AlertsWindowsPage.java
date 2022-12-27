@@ -1,32 +1,35 @@
 package page_objects;
 
 import framework.base.BaseForm;
-import framework.elements.Button;
+import framework.elements.MarkedList;
 
 /**
  * @author Pavel Romanov 23.12.2022
  */
 public class AlertsWindowsPage extends BaseForm {
-    private static Button btn;
+    private static MarkedList listElement;
     private static final String ALERTS_MENU_PATH = "//*[@id='item-1']//*[contains(text(), 'Alerts')]";
+    private static final String ALERTS_MENU_NAME = "Alerts button";
     private static final String NESTED_FRAMES_BUTTON_PATH = "//*[@id='item-3']//*[contains(text(), 'Nested')]";
+    private static final String NESTED_FRAMES_BUTTON_NAME = "Nested frames button";
     private static final String BROWSER_WINDOWS_BUTTON_PATH = "//*[@id='item-0']//*[contains(text(), 'Browser')]";
+    private static final String BROWSER_WINDOWS_BUTTON_NAME = "Browser button";
 
     public void clickAlertsMenuBtn() {
-        btn = new Button(ALERTS_MENU_PATH);
-        btn.scrollToElement();
-        btn.doClick();
+        listElement = new MarkedList(ALERTS_MENU_PATH, ALERTS_MENU_NAME);
+        listElement.scrollToElement();
+        listElement.doClick();
     }
 
     public void clickNestedFramesBtn() {
-        btn = new Button(NESTED_FRAMES_BUTTON_PATH);
-        btn.scrollToElement();
-        btn.doClick();
+        listElement = new MarkedList(NESTED_FRAMES_BUTTON_PATH, NESTED_FRAMES_BUTTON_NAME);
+        listElement.scrollToElement();
+        listElement.doClick();
     }
 
     public void clickBrowserWindowsBtn() {
-        btn = new Button(BROWSER_WINDOWS_BUTTON_PATH);
-        btn.scrollToElement();
-        btn.doClick();
+        listElement = new MarkedList(BROWSER_WINDOWS_BUTTON_PATH, BROWSER_WINDOWS_BUTTON_NAME);
+        listElement.scrollToElement();
+        listElement.doClick();;
     }
 }

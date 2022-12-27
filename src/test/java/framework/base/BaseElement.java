@@ -15,29 +15,44 @@ import java.util.List;
 public abstract class BaseElement {
     private static WebElement element;
     private static String locator;
+    private static String name;
     private static JavascriptExecutor executor;
     private static List<WebElement> list;
     private static final String SCROLL_SCRIPT = "arguments[0].scrollIntoView();";
 
-    public BaseElement(String locator) {
+    protected BaseElement(String locator, String name) {
+        this.name = name;
         this.locator = locator;
         element = WaitUtil.setPresenceWait(locator);
-        executor = (JavascriptExecutor) DriverManager.getDriver();
+    }
+
+    protected BaseElement(String locator) {
+        this.locator = locator;
+        element = WaitUtil.setPresenceWait(locator);
+    }
+
+    protected void findRows(String locator) {
+        list = element.findElements(By.xpath(locator));
     }
 
     public void doClick() {
         element.click();
     }
 
-    public boolean checkDisplayed() {
-        return element.isDisplayed();
+    public String getName() {
+        return name;
     }
 
-    public boolean checkClosed() {
-        return WaitUtil.waitForClose(element);
-    }
+//    public boolean checkDisplayed() {
+//        return element.isDisplayed();
+//    }
+//
+//    public boolean checkClosed() {
+//        return WaitUtil.waitForClose(element);
+//    }
 
     public void scrollToElement() {
+        executor = (JavascriptExecutor) DriverManager.getDriver();
         executor.executeScript(SCROLL_SCRIPT, element);
     }
 

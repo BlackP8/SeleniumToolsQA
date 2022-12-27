@@ -1,6 +1,6 @@
 package framework.driver;
 
-import framework.utilities.config_util.ConfigManager;
+import config_util.ConfigManager;
 
 /**
  * @author Pavel Romanov 22.12.2022

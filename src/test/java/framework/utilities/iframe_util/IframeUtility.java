@@ -1,7 +1,7 @@
-package framework.utilities;
+package framework.utilities.iframe_util;
 
 import framework.base.BaseElement;
-import framework.driver.DriverManager2;
+import framework.driver.DriverManager;
 import framework.elements.Heading;
 
 /**
@@ -12,25 +12,25 @@ public class IframeUtility {
     private static Heading heading;
 
     public static String getParentText(String id, String cssSelector) {
-        DriverManager2.getDriver().switchTo().frame(id);
+        DriverManager.getDriver().switchTo().frame(id);
         text = BaseElement.findByCss(cssSelector).getText();
-        DriverManager2.getDriver().switchTo().defaultContent();
+        DriverManager.getDriver().switchTo().defaultContent();
         return text;
     }
 
     public static String getChildText(String id, String cssSelector, int index) {
-        DriverManager2.getDriver().switchTo().frame(id);
-        DriverManager2.getDriver().switchTo().frame(index);
+        DriverManager.getDriver().switchTo().frame(id);
+        DriverManager.getDriver().switchTo().frame(index);
         text = BaseElement.findByCss(cssSelector).getText();
-        DriverManager2.getDriver().switchTo().defaultContent();
+        DriverManager.getDriver().switchTo().defaultContent();
         return text;
     }
 
     public static String getFramesText(String id, String locator) {
-        DriverManager2.getDriver().switchTo().frame(id);
+        DriverManager.getDriver().switchTo().frame(id);
         heading = new Heading(locator);
         text = heading.getText();
-        DriverManager2.getDriver().switchTo().defaultContent();
+        DriverManager.getDriver().switchTo().defaultContent();
         return text;
     }
 }

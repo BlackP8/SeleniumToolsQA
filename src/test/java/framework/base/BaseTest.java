@@ -1,10 +1,9 @@
 package framework.base;
 
-import framework.utilities.config_utility.ConfigManager;
+import framework.utilities.config_util.ConfigManager;
 import framework.driver.BrowserFactory;
-import framework.driver.DriverManager2;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import framework.driver.DriverManager;
+import org.testng.annotations.*;
 
 /**
  * @author Pavel Romanov 22.12.2022
@@ -15,13 +14,13 @@ public abstract class BaseTest {
     @BeforeClass
     public void setup() {
         ConfigManager.setConfig();
-        DriverManager2.createInstance(BrowserFactory.CHROME.getBrowser());
+        DriverManager.createInstance(BrowserFactory.CHROME.getBrowser());
         mainPageURL = ConfigManager.getConfProperty("mainPageURL");
-        DriverManager2.getDriver().get(mainPageURL);
+        DriverManager.getDriver().get(mainPageURL);
     }
 
     @AfterClass
     public void quitBrowser() {
-        DriverManager2.quitDriver();
+        DriverManager.quitDriver();
     }
 }

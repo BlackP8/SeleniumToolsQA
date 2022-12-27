@@ -3,8 +3,15 @@
 
 <suite name = "Tests suit" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
     <test name = "Test case 1">
+        <parameter name="test_file" value="src/test/resources/test_case1_data.json" />
         <classes>
-            <class name = "test_cases.Test1"/>
+            <class name = "test_case1.Test1"/>
+        </classes>
+    </test>
+    <test name = "Test case 2">
+        <parameter name="test_file" value="src/test/resources/test_case2_data.json" />
+        <classes>
+            <class name = "test_case2.Test2"/>
         </classes>
     </test>
 </suite>

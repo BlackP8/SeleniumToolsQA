@@ -1,21 +1,20 @@
 package page_objects;
 
+import framework.base.BaseForm;
 import framework.elements.Button;
-import framework.elements.Form;
 import framework.elements.Span;
 import framework.utilities.text_generator.TextGenerator;
-import framework.utilities.alert_utility.AlertUtil;
+import framework.utilities.alert_util.AlertUtil;
 
 /**
  * @author Pavel Romanov 23.12.2022
  */
-public class AlertsPage {
+public class AlertsPage extends BaseForm {
     private static Button btn;
-    private static Form form;
     private static Span span;
     private static String generatedText;
     private static final String optionalText = "You entered ";
-    private static final String ALERTS_FORM_PATH = "//*[@id='javascriptAlertsWrapper']";
+    private static final String ALERTS_FORM_IDENTIFIER = "//*[@id='javascriptAlertsWrapper']";
     private static final String SEE_ALERT_BUTTON_PATH = "//*[@id='alertButton']";
     private static final String CONFIRM_BOX_BUTTON_PATH = "//*[@id='confirmButton']";
     private static final String CONFIRM_TEXT_PATH = "//*[@id='confirmResult']";
@@ -35,8 +34,7 @@ public class AlertsPage {
     }
 
     public boolean checkAlertsForm() {
-        form = new Form(ALERTS_FORM_PATH);
-        return form.checkDisplayed();
+        return BaseForm.checkPage(ALERTS_FORM_IDENTIFIER);
     }
 
     public void clickSeeAlertBtn() {

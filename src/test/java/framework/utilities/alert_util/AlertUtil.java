@@ -1,15 +1,18 @@
-package framework.utilities.alert_utility;
+package framework.utilities.alert_util;
 
-import framework.driver.DriverManager2;
+import framework.driver.DriverManager;
+import framework.utilities.wait_util.WaitUtil;
 import org.openqa.selenium.Alert;
 
 /**
  * @author Pavel Romanov 23.12.2022
  */
 public class AlertUtil {
-    private static Alert alert = DriverManager2.getDriver().switchTo().alert();
+    private static Alert alert;
 
     public static boolean checkAlert(String expectedText) {
+        WaitUtil.waitForAlert();
+        alert = DriverManager.getDriver().switchTo().alert();
         String actualText = alert.getText();
         return actualText.equals(expectedText);
     }
@@ -21,7 +24,7 @@ public class AlertUtil {
     public static boolean checkAlertClosed() {
         boolean result = false;
         try {
-            alert = DriverManager2.getDriver().switchTo().alert();
+            alert = DriverManager.getDriver().switchTo().alert();
         }
         catch (Exception e) {
             result = true;

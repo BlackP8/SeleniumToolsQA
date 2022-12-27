@@ -1,36 +1,56 @@
 package framework.driver;
 
-import framework.utilities.config_utility.ConfigManager;
+import framework.utilities.config_util.ConfigManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author Pavel Romanov 22.12.2022
  */
-public abstract class DriverManager {
-    private static String implicitWaitTime = ConfigManager.getConfProperty("implicitWaitTime");
-    protected static ThreadLocal<WebDriver> drivers = new ThreadLocal<>();
+public class DriverManager {
+    private static WebDriver webDriver;
+    private static String language;
+    private static String implicitWaitTime;
+    private static String windowSize;
 
-    protected abstract WebDriver createDriver();
+    public static void createInstance(String browserName) {
+            language = ConfigManager.getConfProperty("engLang");
+            implicitWaitTime = ConfigManager.getConfProperty("implicitWaitTime");
+            windowSize = ConfigManager.getConfProperty("maximizedWindow");
 
-    public void quitDriver() {
-        if (null != drivers.get()) {
-            drivers.get().quit();
-            drivers.remove();
-
-        }
+            if (browserName.toLowerCase().contains(BrowserFactory.FIREFOX.getBrowser())) {
+                WebDriverManager.firefoxdriver().setup();
+                FirefoxOptions options = new FirefoxOptions();
+                options.addArguments(language, windowSize);
+                webDriver = new FirefoxDriver(options);
+                setTimeout();
+            }
+            else if (browserName.toLowerCase().contains(BrowserFactory.CHROME.getBrowser())) {
+                WebDriverManager.chromedriver().setup();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments(language, windowSize);
+                webDriver = new ChromeDriver(options);
+                setTimeout();
+            }
     }
 
-    public WebDriver getDriver() {
-        if (null == drivers.get()) {
-            drivers.set(this.createDriver());
-        }
+    public static WebDriver getDriver() {
+        return webDriver;
+    }
 
-        drivers.get().manage().timeouts().implicitlyWait(Long.parseLong(implicitWaitTime),
+    public static void quitDriver() {
+        webDriver.quit();
+        webDriver = null;
+    }
+
+    private static void setTimeout() {
+        webDriver.manage().timeouts().implicitlyWait(Long.parseLong(implicitWaitTime),
                 TimeUnit.SECONDS);
-        drivers.get().manage().window().maximize();
-
-        return drivers.get();
     }
 }

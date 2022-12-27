@@ -1,16 +1,15 @@
 package page_objects;
 
+import framework.base.BaseForm;
 import framework.elements.Button;
-import framework.elements.Form;
-import framework.utilities.IframeUtility;
+import framework.utilities.iframe_util.IframeUtility;
 
 /**
  * @author Pavel Romanov 23.12.2022
  */
-public class NestedFramesPage {
+public class NestedFramesPage extends BaseForm {
     private static Button btn;
-    private static Form form;
-    private static final String NESTED_FRAMES_FORM_PATH = "//*[@id='framesWrapper']";
+    private static final String NESTED_FRAMES_FORM_IDENTIFIER = "//*[@id='framesWrapper']";
     private static final String NESTED_FRAME_ID = "frame1";
     private static final String PARENT_FRAME_TEXT_PATH = "body";
     private static final String CHILD_FRAME_TEXT_PATH = "p";
@@ -18,8 +17,7 @@ public class NestedFramesPage {
     private static final String FRAMES_MENU_BUTTON_PATH = "//*[@id='item-2']//*[contains(text(), 'Frames')]";
 
     public boolean checkNestedForm() {
-        form = new Form(NESTED_FRAMES_FORM_PATH);
-        return form.checkDisplayed();
+        return BaseForm.checkPage(NESTED_FRAMES_FORM_IDENTIFIER);
     }
 
     public boolean checkFrameText(String expectedParentText, String expectedChildText) {

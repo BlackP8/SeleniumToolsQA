@@ -7,5 +7,6 @@
   "chromeBrowser": "chrome",
   "firefoxBrowser": "firefox",
   "testcase1_data": "src/test/resources/test_case1_data.json",
-  "testcase2_data": "src/test/resources/test_case2_data.json"
+  "testcase2_data": "src/test/resources/test_case2_data.json",
+  "testcase3_data": "src/test/resources/test_case3_data.json"
 }

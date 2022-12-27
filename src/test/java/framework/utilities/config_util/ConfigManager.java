@@ -1,4 +1,4 @@
-package framework.utilities.config_utility;
+package framework.utilities.config_util;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -27,13 +27,15 @@ public class ConfigManager {
         }
     }
 
-    public static void setTestData(String filePath) {
+    public static JSONObject setTestData(String filePath) {
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             Object obj = parser.parse(reader);
             jsonTestObject = (JSONObject)obj;
+            return jsonTestObject;
         }
         catch (IOException | ParseException e) {
             e.printStackTrace();
+            return null;
         }
     }
 

@@ -1,38 +1,41 @@
 package test_case3;
 
 import framework.base.BaseTest;
+import framework.logger.Log;
+import framework.logger.LogMessages;
 import framework.utilities.data_provider.DataProviderUtil;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import page_objects.ElementsPage;
-import page_objects.MainPage;
 import page_objects.WebTablesPage;
+import steps.AssertSteps;
+import steps.Steps;
 
-import java.util.HashMap;
 
 /**
  * @author Pavel Romanov 25.12.2022
  */
 public class Test3 extends BaseTest {
     @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "userData")
-    public void tablesTest(User user, HashMap<String, String> userData) {
-        MainPage mainPage = new MainPage();
-        Assert.assertTrue(mainPage.checkMainPage(), "Главная страница не открылась.");
+    public void tablesTest(User user) {
+        Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
+        AssertSteps.checkMainPage();
 
-        mainPage.clickElementsBtn();
-        ElementsPage elementsPage = new ElementsPage();
-        elementsPage.clickWebElementsBtn();
+        Log.logTestSteps("Переходим на форму Elements, затем на форму Web tables.");
+        Steps.clickElementsBtn();
         WebTablesPage webTablesPage = new WebTablesPage();
-        Assert.assertTrue(webTablesPage.checkWebTablesForm(), "Страница с формой WebTables не открылась.");
+        AssertSteps.checkForm(webTablesPage.checkWebTablesForm());
 
-        webTablesPage.clickAddBtn();
-        Assert.assertTrue(webTablesPage.checkRegistrationForm(), "На странице не появилась форма Registrarion Form.");
+        Log.logTestSteps("Открываем форму Registration form.");
+        Steps.clickAddBtn();
+        AssertSteps.checkRegFormOpened(webTablesPage.checkRegistrationForm());
 
-        webTablesPage.enterData(user);
-        webTablesPage.clickSubmitBtn();
-        Assert.assertTrue(webTablesPage.checkRegistrationForm(), "Форма регистрации не закрыта.");
-        Assert.assertTrue(webTablesPage.checkData(), "Данные пользователя не были добавлены.");
-//
-//        webTablesPage.deleteData(userData);
+        Log.logTestSteps("Вводим в форму данные пользователя на нажимаем Submit.");
+        Steps.enterUserData(user);
+        AssertSteps.checkForm(webTablesPage.checkRegistrationForm());
+        AssertSteps.checkUserData(user);
+
+        Log.logTestSteps("Удаляем пользователя из таблицы кнопкой Delete.");
+        Steps.deleteUser();
+        AssertSteps.checkUserDeleted(user);
+
     }
 }

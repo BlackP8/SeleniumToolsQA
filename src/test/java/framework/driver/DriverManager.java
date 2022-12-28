@@ -1,6 +1,6 @@
 package framework.driver;
 
-import config_util.ConfigManager;
+import framework.utilities.config_util.ConfigManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,24 +20,23 @@ public class DriverManager {
     private static String windowSize;
 
     public static void createInstance(String browserName) {
-            language = ConfigManager.getConfProperty("engLang");
-            implicitWaitTime = ConfigManager.getConfProperty("implicitWaitTime");
-            windowSize = ConfigManager.getConfProperty("maximizedWindow");
+        language = ConfigManager.getConfProperty("engLang");
+        implicitWaitTime = ConfigManager.getConfProperty("implicitWaitTime");
+        windowSize = ConfigManager.getConfProperty("maximizedWindow");
 
-            if (browserName.toLowerCase().contains(BrowserFactory.FIREFOX.getBrowser())) {
-                WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions options = new FirefoxOptions();
-                options.addArguments(language, windowSize);
-                webDriver = new FirefoxDriver(options);
-                setTimeout();
-            }
-            else if (browserName.toLowerCase().contains(BrowserFactory.CHROME.getBrowser())) {
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments(language, windowSize);
-                webDriver = new ChromeDriver(options);
-                setTimeout();
-            }
+        if (browserName.toLowerCase().contains(BrowserFactory.FIREFOX.getBrowser())) {
+            WebDriverManager.firefoxdriver().setup();
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments(language, windowSize);
+            webDriver = new FirefoxDriver(options);
+            setTimeout();
+        } else if (browserName.toLowerCase().contains(BrowserFactory.CHROME.getBrowser())) {
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments(language, windowSize);
+            webDriver = new ChromeDriver(options);
+            setTimeout();
+        }
     }
 
     public static WebDriver getDriver() {

@@ -1,8 +1,6 @@
 package framework.base;
 
-import framework.driver.DriverManager;
 import framework.utilities.wait_util.WaitUtil;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**

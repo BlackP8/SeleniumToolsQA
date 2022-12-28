@@ -2,6 +2,7 @@ package test_case1;
 
 import framework.base.BaseTest;
 import framework.logger.Log;
+import framework.logger.LogMessages;
 import framework.utilities.data_provider.DataProviderUtil;
 import org.testng.annotations.Test;
 import page_objects.AlertsPage;
@@ -15,36 +16,36 @@ import steps.Steps;
 public class Test1 extends BaseTest {
     @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
     public void alertsTest(String alertBtnText, String confirmAlertText, String promptBoxText, String confirmBoxText) {
-        Log.logTestSteps("Выполняем первый шаг.");
+        Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
         AssertSteps.checkMainPage();
 
-        Log.logTestSteps("Выполняем второй шаг.");
+        Log.logTestSteps("Переходим на форму Alerts.");
         Steps.clickAlertsFrameWindowsBtn();
         AlertsPage alertsPage = new AlertsPage();
         AssertSteps.checkForm(alertsPage.checkAlertsForm());
 
-        Log.logTestSteps("Выполняем третий шаг.");
+        Log.logTestSteps("Нажимаем на кнопку Click Button to see alert.");
         Steps.clickSeeAlertBtn();
         AssertSteps.checkAlert(alertBtnText);
 
-        Log.logTestSteps("Выполняем четвертый шаг.");
+        Log.logTestSteps("Закрываем алерт.");
         Steps.clickAlertOk();
         AssertSteps.checkAlertClosed();
 
-        Log.logTestSteps("Выполняем пятый шаг.");
+        Log.logTestSteps("Открываем алерт confirm box.");
         Steps.clickConfirmBoxBtn();
         AssertSteps.checkAlert(confirmAlertText);
 
-        Log.logTestSteps("Выполняем шестой шаг.");
+        Log.logTestSteps("Закрываем алерт.");
         Steps.clickAlertOk();
         AssertSteps.checkAlertClosed();
         AssertSteps.checkBtnText(confirmBoxText);
 
-        Log.logTestSteps("Выполняем седьмой шаг.");
+        Log.logTestSteps("Открываем алерт с текстовым полем.");
         Steps.clickPromptBtn();
         AssertSteps.checkAlert(promptBoxText);
 
-        Log.logTestSteps("Выполняем восьмой шаг.");
+        Log.logTestSteps("Вводим случайный текст и закрываем алерт.");
         Steps.enterRandomText();
         AssertSteps.checkAlertClosed();
         AssertSteps.compareAlertText();

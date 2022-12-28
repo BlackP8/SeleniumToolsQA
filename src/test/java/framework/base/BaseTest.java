@@ -1,6 +1,7 @@
 package framework.base;
 
-import config_util.ConfigManager;
+import framework.logger.Log;
+import framework.utilities.config_util.ConfigManager;
 import framework.driver.BrowserFactory;
 import framework.driver.DriverManager;
 import org.testng.annotations.*;
@@ -10,18 +11,19 @@ import org.testng.annotations.*;
  */
 public abstract class BaseTest {
     private static String mainPageURL;
-    private static String marker = "TEST_STEPS";
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
+        Log.logTestSteps("Инициализируем драйвер.");
         ConfigManager.setConfig();
         DriverManager.createInstance(BrowserFactory.CHROME.getBrowser());
         mainPageURL = ConfigManager.getConfProperty("mainPageURL");
         DriverManager.getDriver().get(mainPageURL);
     }
 
-    @AfterClass
+    @AfterMethod
     public void quitBrowser() {
+        Log.logTestSteps("Закрываем драйвер.");
         DriverManager.quitDriver();
     }
 }

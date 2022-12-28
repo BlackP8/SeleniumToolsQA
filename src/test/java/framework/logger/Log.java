@@ -1,9 +1,7 @@
 package framework.logger;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
 
 /**
  * @author Pavel Romanov 27.12.2022

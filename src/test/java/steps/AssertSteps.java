@@ -2,6 +2,7 @@ package steps;
 
 import org.testng.Assert;
 import page_objects.*;
+import test_case3.User;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class AssertSteps {
     private static NestedFramesPage nestedFramesPage = new NestedFramesPage();
     private static FramesPage framesPage = new FramesPage();
     private static SamplePage samplePage = new SamplePage();
+    private static WebTablesPage webTablesPage = new WebTablesPage();
 
     public static void checkForm(boolean checkResult) {
         Assert.assertTrue(checkResult, "Требуемая форма не открылась.");
@@ -21,6 +23,10 @@ public class AssertSteps {
 
     public static void checkMainPage() {
         Assert.assertTrue(mainPage.checkMainPage(), "Главная страница не открылась.");
+    }
+
+    public static void checkRegFormOpened(boolean checkResult) {
+        Assert.assertTrue(checkResult, "На странице не появилась форма Registrarion Form.");
     }
 
     public static void checkAlert(String expectedText) {
@@ -53,5 +59,14 @@ public class AssertSteps {
 
     public static void checkSamplePageText(List<String> data) {
         Assert.assertTrue(samplePage.checkPageText(data), "Новая вкладка /sample со страницей sample page не открылась.");
+    }
+
+    public static void checkUserData(User user) {
+        Assert.assertTrue(webTablesPage.checkUser(user), "Данные пользователя не были добавлены.");
+    }
+
+    public static void checkUserDeleted(User user) {
+        Assert.assertFalse(webTablesPage.checkUser(user), "Пользователь User № не удалился из таблицы");
+        Assert.assertFalse(webTablesPage.compareCount(), "Количество записей в таблице не изменилось.");
     }
 }

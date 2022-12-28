@@ -16,26 +16,29 @@ public class MainPage extends BaseForm {
     private static final String ELEMENTS_BUTTON_PATH = "//*[@class='card mt-4 top-card']//*[contains(text(),'Elements')]";
     private static final String ALERTS_BUTTON_NAME = "AlertsFramesWindows button";
     private static final String ELEMENTS_BUTTON_NAME = "Elements button";
-    private static final String LOG_TEXT = LogMessages.PRESS_BUTTON.getText();
+    private static final String BUTTON_LOG_TEXT = LogMessages.PRESS_BUTTON.getText();
+    private static final String PAGE_LOG_TEXT = LogMessages.CHECK_PAGE.getText();
 
     public boolean checkMainPage() {
+        Log.logPages(PAGE_LOG_TEXT + MainPage.class.getName());
         return BaseForm.checkPage(MAIN_PAGE_IDENTIFIER);
     }
 
     public void changeTab() {
+        Log.logPages(PAGE_LOG_TEXT + LinksPage.class.getName());
         TabUtility.switchTab();
     }
 
     public void clickAlertsBtn() {
         btn = new Button(ALERTS_BUTTON_PATH, ALERTS_BUTTON_NAME);
-        Log.logPages(LOG_TEXT + btn.getName());
+        Log.logPages(BUTTON_LOG_TEXT + btn.getName());
         btn.scrollToElement();
         btn.doClick();
     }
 
     public void clickElementsBtn() {
         btn = new Button(ELEMENTS_BUTTON_PATH, ELEMENTS_BUTTON_NAME);
-        Log.logPages(LOG_TEXT + btn.getName());
+        Log.logPages(BUTTON_LOG_TEXT + btn.getName());
         btn.scrollToElement();
         btn.doClick();
     }

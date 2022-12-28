@@ -1,4 +1,4 @@
-package config_util;
+package framework.utilities.config_util;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -37,10 +37,6 @@ public class ConfigManager {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static String getTestProperty(String key) {
-        return (String) jsonTestObject.get(key);
     }
 
     public static String getConfProperty(String key) {

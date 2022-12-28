@@ -1,6 +1,5 @@
 package framework.utilities.text_util;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
 
@@ -9,7 +8,6 @@ import java.util.Random;
  */
 public class TextUtility {
     private static int generatedTextLength = 7;
-    private static String encoding = "UTF-8";
 
     public static int checkTextContains(String text1, String text2, List<String> data) {
         int count = 0;
@@ -29,7 +27,7 @@ public class TextUtility {
     public static String generateText() {
         byte[] array = new byte[generatedTextLength];
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName(encoding));
+        String generatedString = new String(array);
         return generatedString;
     }
 }

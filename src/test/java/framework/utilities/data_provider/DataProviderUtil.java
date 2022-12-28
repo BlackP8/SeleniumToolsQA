@@ -1,10 +1,8 @@
 package framework.utilities.data_provider;
 
-import config_util.ConfigManager;
+import framework.utilities.config_util.ConfigManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
 import test_case3.User;
@@ -18,11 +16,18 @@ public class DataProviderUtil {
     private JSONObject jsonTestObject = null;
     private User user;
     private JSONArray usersList = null;
-    private static String testParameter = "test_file";
+    private static String testFile = "test_file";
+    private static String testObjects = "test_objects";
+    private static String firstName = "first_name";
+    private static String lastName = "last_name";
+    private static String email = "email";
+    private static String age = "age";
+    private static String salary = "salary";
+    private static String dep = "department";
 
     @DataProvider(name = "dp")
     public Object[][] getData(ITestContext context) {
-        String testParam = context.getCurrentXmlTest().getParameter(testParameter);
+        String testParam = context.getCurrentXmlTest().getParameter(testFile);
         jsonTestObject = ConfigManager.setTestData(testParam);
         HashMap<String, String> hashMap = new LinkedHashMap<>();
 
@@ -49,41 +54,33 @@ public class DataProviderUtil {
     }
 
     @DataProvider(name = "userData")
-    public Object[] getUser() {
-        jsonTestObject = ConfigManager.setTestData("src/test/resources/test_case3_data.json");
-        usersList = (JSONArray) jsonTestObject.get("users");
+    public Object[][] getUser(ITestContext context) {
+        String file = context.getCurrentXmlTest().getParameter(testFile);
+        String usersParameter = context.getCurrentXmlTest().getParameter(testObjects);
+        String fNameParameter = context.getCurrentXmlTest().getParameter(firstName);
+        String lNameParameter = context.getCurrentXmlTest().getParameter(lastName);
+        String emailParameter = context.getCurrentXmlTest().getParameter(email);
+        String ageParameter = context.getCurrentXmlTest().getParameter(age);
+        String salaryParameter = context.getCurrentXmlTest().getParameter(salary);
+        String depParameter = context.getCurrentXmlTest().getParameter(dep);
+        jsonTestObject = ConfigManager.setTestData(file);
+        usersList = (JSONArray) jsonTestObject.get(usersParameter);
 
-        Object[] data = new Object[1];
-        HashMap<String, String> hashMap = new LinkedHashMap<>();
-        String[] userData;
+        List<User> users = new ArrayList<>();
 
         if (usersList != null) {
-            jsonTestObject = (JSONObject) usersList.get(0);
-            user = new User(jsonTestObject.get("firstName").toString(), jsonTestObject.get("lastName").toString(),
-                    jsonTestObject.get("userEmail").toString(), jsonTestObject.get("age").toString(),
-                    jsonTestObject.get("salary").toString(), jsonTestObject.get("department").toString());
-//            user.setFirstName((String) jsonTestObject.get("firstName"));
-//            user.setLastName((String) jsonTestObject.get("lastName"));
-//            user.setEmail((String) jsonTestObject.get("email"));
-//            user.setAge((String) jsonTestObject.get("age"));
-//            user.setSalary((String) jsonTestObject.get("salary"));
-//            user.setDepartment((String) jsonTestObject.get("department"));
-
-            Set<String> jsonObjKeys = jsonTestObject.keySet();
-
-            for (String jsonObjKey: jsonObjKeys) {
-                hashMap.put(jsonObjKey, (String) jsonTestObject.get(jsonObjKey));
+            for (int i = 0; i < usersList.size(); i++) {
+                jsonTestObject = (JSONObject) usersList.get(i);
+                user = new User(jsonTestObject.get(fNameParameter).toString(), jsonTestObject.get(lNameParameter).toString(),
+                        jsonTestObject.get(emailParameter).toString(), jsonTestObject.get(ageParameter).toString(),
+                        jsonTestObject.get(salaryParameter).toString(), jsonTestObject.get(depParameter).toString());
+                users.add(user);
             }
-//            userData = hashMap.values().toArray(new String[hashMap.size()]);
         }
         else {
             throw new RuntimeException();
         }
 
-//        data[0] = user;
-//        data[1] = userData;
-        return new Object[][] {
-                {user, hashMap},
-        };
+        return new Object[][] {{users.get(0)}, {users.get(1)}};
     }
 }

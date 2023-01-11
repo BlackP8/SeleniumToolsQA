@@ -5,7 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
-import test_case3.User;
+import data_model.User;
 
 import java.util.*;
 

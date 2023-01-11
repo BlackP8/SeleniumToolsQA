@@ -1,95 +1,95 @@
 package steps;
 
+import framework.utilities.alert_util.AlertUtility;
+import framework.utilities.tab_util.TabUtility;
 import page_objects.*;
-import test_case3.User;
+import data_model.User;
 
 /**
  * @author Pavel Romanov 27.12.2022
  */
 public class Steps {
-    private static MainPage mainPage = new MainPage();
-    private static AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
-    private static AlertsPage alertsPage = new AlertsPage();
-    private static NestedFramesPage nestedFramesPage = new NestedFramesPage();
-    private static BrowserWindowsPage windowsPage = new BrowserWindowsPage();
-    private static LinksPage linksPage = new LinksPage();
-    private static ElementsPage elementsPage = new ElementsPage();
-    private static WebTablesPage webTablesPage = new WebTablesPage();
 
-    public static void clickAlertsFrameWindowsBtn() {
-        mainPage.clickAlertsBtn();
+    public static void clickAlertsMenuBtn(AlertsWindowsPage alertsWindowsPage) {
         alertsWindowsPage.clickAlertsMenuBtn();
     }
+    public static void clickAlertsFrameWindowsBtn(MainPage mainPage) {
+        mainPage.clickAlertsFramesWindowsBtn();
+    }
 
-    public static void clickSeeAlertBtn() {
+    public static void clickSeeAlertBtn(AlertsPage alertsPage) {
         alertsPage.clickSeeAlertBtn();
     }
 
     public static void clickAlertOk() {
-        alertsPage.clickOk();
+        AlertUtility.clickAlertOk();
     }
 
-    public static void clickConfirmBoxBtn() {
+    public static void clickConfirmBoxBtn(AlertsPage alertsPage) {
         alertsPage.clickConfirmBtn();
     }
 
-    public static void clickPromptBtn() {
+    public static void clickPromptBtn(AlertsPage alertsPage) {
         alertsPage.clickPromptBtn();
     }
 
-    public static void enterRandomText() {
-        alertsPage.enterRandomText();
+    public static void enterRandomText(String generatedText) {
+        AlertUtility.enterText(generatedText);
         clickAlertOk();
     }
 
-    public static void clickNestedFramesBtn() {
+    public static void clickNestedFramesBtn(AlertsWindowsPage alertsWindowsPage) {
         alertsWindowsPage.clickNestedFramesBtn();
     }
 
-    public static void clickFramesBtn() {
+    public static void clickFramesBtn(NestedFramesPage nestedFramesPage) {
         nestedFramesPage.clickFramesMenuBtn();
     }
 
-    public static void clickBrowserBtn() {
+    public static void clickBrowserBtn(AlertsWindowsPage alertsWindowsPage) {
         alertsWindowsPage.clickBrowserWindowsBtn();
     }
 
-    public static void clickNewTabBtn() {
+    public static void clickNewTabBtn(BrowserWindowsPage windowsPage) {
         windowsPage.clickNewTabBtn();
     }
 
     public static void closeSamplePage() {
-        windowsPage.closeTab();
+        TabUtility.closeTab();
+        TabUtility.switchTab();
     }
 
-    public static void clickLinksButton() {
+    public static void clickLinksButton(BrowserWindowsPage windowsPage) {
         windowsPage.clickLinksBtn();
     }
 
-    public static void goHomeLink() {
+    public static void goHomeLink(LinksPage linksPage) {
         linksPage.clickHomeBtn();
-        linksPage.changeTab();
+        TabUtility.changeTab();
     }
 
     public static void switchOnMainPage() {
-        mainPage.changeTab();
+        TabUtility.switchTab();
     }
 
-    public static void clickElementsBtn() {
-        mainPage.clickElementsBtn();
+    public static void clickWebElementsBtn(ElementsPage elementsPage) {
         elementsPage.clickWebElementsBtn();
     }
 
-    public static void clickAddBtn() {
+    public static void clickElementsBtn(MainPage mainPage) {
+        mainPage.clickElementsBtn();
+    }
+
+    public static void clickAddBtn(WebTablesPage webTablesPage) {
         webTablesPage.clickAddBtn();
     }
 
-    public static void enterUserData(User user) {
-        webTablesPage.enterData(user);
-        webTablesPage.clickSubmitBtn();
+    public static void enterUserData(User user, RegistrationForm registrationForm) {
+        registrationForm.enterData(user);
+        registrationForm.clickSubmitBtn();
     }
 
-    public static void deleteUser() {
+    public static void deleteUser(WebTablesPage webTablesPage) {
         webTablesPage.deleteData();
     }
 }

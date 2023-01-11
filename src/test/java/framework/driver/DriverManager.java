@@ -52,4 +52,8 @@ public class DriverManager {
         webDriver.manage().timeouts().implicitlyWait(Long.parseLong(implicitWaitTime),
                 TimeUnit.SECONDS);
     }
+
+    public static void openURL(String url) {
+        webDriver.get(url);
+    }
 }

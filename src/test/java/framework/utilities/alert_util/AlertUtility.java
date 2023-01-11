@@ -10,7 +10,7 @@ import org.openqa.selenium.Alert;
 public class AlertUtility {
     private static Alert alert;
 
-    public static boolean checkAlert(String expectedText) {
+    public static boolean isAlertShown(String expectedText) {
         WaitUtil.waitForAlert();
         alert = DriverManager.getDriver().switchTo().alert();
         String actualText = alert.getText();
@@ -21,7 +21,7 @@ public class AlertUtility {
         alert.accept();
     }
 
-    public static boolean checkAlertClosed() {
+    public static boolean isAlertClosed() {
         boolean result = false;
         try {
             alert = DriverManager.getDriver().switchTo().alert();

@@ -1,10 +1,10 @@
-package framework.elements;
+package table;
 
 import framework.base.BaseElement;
 import framework.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import test_case3.User;
+import data_model.User;
 
 import java.util.List;
 

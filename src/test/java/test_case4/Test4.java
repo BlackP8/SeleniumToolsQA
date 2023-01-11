@@ -4,6 +4,7 @@ import framework.base.BaseTest;
 import framework.logger.Log;
 import framework.logger.LogMessages;
 import framework.utilities.data_provider.DataProviderUtil;
+import framework.utilities.tab_util.TabUtility;
 import org.testng.annotations.Test;
 import page_objects.*;
 import steps.AssertSteps;
@@ -19,36 +20,43 @@ public class Test4 extends BaseTest {
     @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
     public void handlesTest(String urlText, String samplePageText) {
         Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
-        AssertSteps.checkMainPage();
+        MainPage mainPage = new MainPage();
+        AssertSteps.checkMainPage(mainPage);
 
         Log.logTestSteps("Переходим на форму Alerts, затем на форму Browser Windows.");
-        Steps.clickAlertsFrameWindowsBtn();
-        Steps.clickBrowserBtn();
+        Steps.clickAlertsFrameWindowsBtn(mainPage);
+        AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
+        Steps.clickBrowserBtn(alertsWindowsPage);
         BrowserWindowsPage windowsPage = new BrowserWindowsPage();
-        AssertSteps.checkForm(windowsPage.checkBrowserWindowsPage());
+        AssertSteps.checkForm(windowsPage.isBrowserWindowsPageAppeared());
 
         Log.logTestSteps("Нажимаем кнопку New tab, открываем новую вкладку.");
-        Steps.clickNewTabBtn();
+        Steps.clickNewTabBtn(windowsPage);
         List<String> listValues = new ArrayList<>();
         listValues.add(urlText);
         listValues.add(samplePageText);
-        AssertSteps.checkSamplePageText(listValues);
+        SamplePage samplePage = new SamplePage();
+        TabUtility.changeTab();
+        AssertSteps.checkForm(samplePage.isSamplePageAppeared());
+        AssertSteps.checkSamplePageText(listValues, samplePage, TabUtility.getTabURL());
 
-        Log.logTestSteps("Закрываем текущую вкладку, переходим на форму Browser Windows.");
+        Log.logTestSteps("Закрываем вкладку " + SamplePage.class.getName() + "и переходим на форму "
+                + BrowserWindowsPage.class.getName());
         Steps.closeSamplePage();
-        AssertSteps.checkForm(windowsPage.checkBrowserWindowsPage());
+        AssertSteps.checkForm(windowsPage.isBrowserWindowsPageAppeared());
 
         Log.logTestSteps(" В левом меню выбираем Elements → Links и переходим на форму Links.");
-        Steps.clickLinksButton();
+        Steps.clickLinksButton(windowsPage);
         LinksPage linksPage = new LinksPage();
-        AssertSteps.checkForm(linksPage.checkLinksPage());
+        AssertSteps.checkForm(linksPage.isLinksPageAppeared());
 
         Log.logTestSteps("Переходим по ссылке Home, переходим на вкладку главной страницы.");
-        Steps.goHomeLink();
-        AssertSteps.checkMainPage();
+        Steps.goHomeLink(linksPage);
+        AssertSteps.checkMainPage(mainPage);
 
         Log.logTestSteps("Переходим на вкладку с формой Links.");
+        Log.logTestSteps(LogMessages.CHECK_PAGE.getText() + LinksPage.class.getName());
         Steps.switchOnMainPage();
-        AssertSteps.checkForm(linksPage.checkLinksPage());
+        AssertSteps.checkForm(linksPage.isLinksPageAppeared());
     }
 }

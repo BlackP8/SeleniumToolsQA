@@ -4,42 +4,36 @@ import framework.elements.Button;
 import framework.base.BaseForm;
 import framework.logger.Log;
 import framework.logger.LogMessages;
-import framework.utilities.tab_util.TabUtility;
 
 /**
  * @author Pavel Romanov 22.12.2022
  */
 public class MainPage extends BaseForm {
-    private static Button btn;
+    private Button alertsFramesWindowsBtn = new Button("//*[@class='category-cards']//*[contains(text(),'Alerts')]",
+            "AlertsFramesWindows button");
+    private Button elementsBtn = new Button("//*[@class='category-cards']//*[contains(text(),'Elements')]",
+            "Elements button");
+
     private static final String MAIN_PAGE_IDENTIFIER = "//*[@class='category-cards']";
-    private static final String ALERTS_BUTTON_PATH = "//*[@class='card mt-4 top-card']//*[contains(text(),'Alerts')]";
-    private static final String ELEMENTS_BUTTON_PATH = "//*[@class='card mt-4 top-card']//*[contains(text(),'Elements')]";
-    private static final String ALERTS_BUTTON_NAME = "AlertsFramesWindows button";
-    private static final String ELEMENTS_BUTTON_NAME = "Elements button";
     private static final String BUTTON_LOG_TEXT = LogMessages.PRESS_BUTTON.getText();
     private static final String PAGE_LOG_TEXT = LogMessages.CHECK_PAGE.getText();
 
-    public boolean checkMainPage() {
+    public boolean isMainPageAppeared() {
         Log.logPages(PAGE_LOG_TEXT + MainPage.class.getName());
-        return BaseForm.checkPage(MAIN_PAGE_IDENTIFIER);
+        return BaseForm.isPageAppeared(MAIN_PAGE_IDENTIFIER);
     }
 
-    public void changeTab() {
-        Log.logPages(PAGE_LOG_TEXT + LinksPage.class.getName());
-        TabUtility.switchTab();
-    }
-
-    public void clickAlertsBtn() {
-        btn = new Button(ALERTS_BUTTON_PATH, ALERTS_BUTTON_NAME);
-        Log.logPages(BUTTON_LOG_TEXT + btn.getName());
-        btn.scrollToElement();
-        btn.doClick();
+    public void clickAlertsFramesWindowsBtn() {
+        Log.logPages(BUTTON_LOG_TEXT + alertsFramesWindowsBtn.getName());
+        alertsFramesWindowsBtn.findElement();
+        alertsFramesWindowsBtn.scrollToElement();
+        alertsFramesWindowsBtn.doClick();
     }
 
     public void clickElementsBtn() {
-        btn = new Button(ELEMENTS_BUTTON_PATH, ELEMENTS_BUTTON_NAME);
-        Log.logPages(BUTTON_LOG_TEXT + btn.getName());
-        btn.scrollToElement();
-        btn.doClick();
+        Log.logPages(BUTTON_LOG_TEXT + elementsBtn.getName());
+        elementsBtn.findElement();
+        elementsBtn.scrollToElement();
+        elementsBtn.doClick();
     }
 }

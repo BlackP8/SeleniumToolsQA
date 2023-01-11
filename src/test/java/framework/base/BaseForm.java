@@ -10,7 +10,7 @@ public abstract class BaseForm {
 
     public BaseForm() { }
 
-    protected static boolean checkPage(String identifier) {
+    protected static boolean isPageAppeared(String identifier) {
         WebElement expectedEl = WaitUtil.setPresenceWait(identifier);
         return expectedEl.isDisplayed();
     }

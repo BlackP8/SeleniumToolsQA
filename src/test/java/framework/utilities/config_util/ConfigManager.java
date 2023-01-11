@@ -1,5 +1,6 @@
 package framework.utilities.config_util;
 
+import framework.logger.Log;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -23,7 +24,7 @@ public class ConfigManager {
             jsonConfObject = (JSONObject)obj;
         }
         catch (IOException | ParseException e) {
-            e.printStackTrace();
+            Log.logElements(e.getMessage());
         }
     }
 
@@ -34,7 +35,7 @@ public class ConfigManager {
             return jsonTestObject;
         }
         catch (IOException | ParseException e) {
-            e.printStackTrace();
+            Log.logElements(e.getMessage());
             return null;
         }
     }

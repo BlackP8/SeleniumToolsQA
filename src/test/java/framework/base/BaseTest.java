@@ -11,14 +11,15 @@ import org.testng.annotations.*;
  */
 public abstract class BaseTest {
     private static String mainPageURL;
+    private static final String MAIN_PAGE_CONFIG_PROPERTY = "mainPageURL";
 
     @BeforeMethod
     public void setup() {
         Log.logTestSteps("Инициализируем драйвер.");
         ConfigManager.setConfig();
         DriverManager.createInstance(BrowserFactory.CHROME.getBrowser());
-        mainPageURL = ConfigManager.getConfProperty("mainPageURL");
-        DriverManager.getDriver().get(mainPageURL);
+        mainPageURL = ConfigManager.getConfProperty(MAIN_PAGE_CONFIG_PROPERTY);
+        DriverManager.openURL(mainPageURL);
     }
 
     @AfterMethod

@@ -16,15 +16,21 @@ public class FramesPage extends BaseForm {
     private static final String PAGE_LOG_TEXT = LogMessages.CHECK_PAGE.getText();
     private static final String CHECK_LOG_TEXT = LogMessages.CHECK_WHAT.getText();
 
-    public boolean checkFramesForm() {
+    public boolean isFramesFormAppeared() {
         Log.logPages(PAGE_LOG_TEXT + FramesPage.class.getName());
-        return BaseForm.checkPage(FRAMES_FORM_IDENTIFIER);
+        return BaseForm.isPageAppeared(FRAMES_FORM_IDENTIFIER);
     }
 
-    public boolean compareFramesText() {
+    public boolean isFramesTextCorrect() {
         Log.logPages(CHECK_LOG_TEXT + "что надпись из верхнего фрейма соответствует надписи из нижнего.");
-        String bigFrameText = IframeUtility.getFramesText(BIG_FRAME_ID, HEADING_PATH);
-        String smallFrameText = IframeUtility.getFramesText(SMALL_FRAME_ID, HEADING_PATH);
+        IframeUtility.switchToFrame(BIG_FRAME_ID);
+        IFramePage bigFrame = new IFramePage();
+        String bigFrameText = bigFrame.getFrameText();
+        IframeUtility.switchBack();
+        IframeUtility.switchToFrame(SMALL_FRAME_ID);
+        IFramePage smallFrame = new IFramePage();
+        String smallFrameText = smallFrame.getFrameText();
+        IframeUtility.switchBack();
         return bigFrameText.equals(smallFrameText);
     }
 }

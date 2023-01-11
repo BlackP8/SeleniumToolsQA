@@ -11,21 +11,25 @@ import org.openqa.selenium.WebElement;
  * @author Pavel Romanov 22.12.2022
  */
 public abstract class BaseElement {
-    private static WebElement element;
-    private static String locator;
-    private static String name;
+    private WebElement element;
+    private String name;
+    private String locator;
+    private static WebElement staticElement;
     private static JavascriptExecutor executor;
     private static final String SCROLL_SCRIPT = "arguments[0].scrollIntoView();";
 
     protected BaseElement(String locator, String name) {
         this.name = name;
         this.locator = locator;
-        element = WaitUtil.setPresenceWait(locator);
     }
 
     protected BaseElement(String locator) {
         this.locator = locator;
+    }
+
+    public void findElement() {
         element = WaitUtil.setPresenceWait(locator);
+        staticElement = WaitUtil.setPresenceWait(locator);
     }
 
     public void doClick() {
@@ -47,12 +51,11 @@ public abstract class BaseElement {
     }
 
     public static WebElement findByCss(String selector) {
-        element = DriverManager.getDriver().findElement(By.cssSelector(selector));
+        WebElement element = DriverManager.getDriver().findElement(By.cssSelector(selector));
         return element;
     }
 
     protected static WebElement getElement() {
-        return element;
+        return staticElement;
     }
-
 }

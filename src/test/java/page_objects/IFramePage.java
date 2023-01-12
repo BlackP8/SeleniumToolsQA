@@ -1,7 +1,7 @@
 package page_objects;
 
-import framework.base.BaseElement;
 import framework.elements.Heading;
+import framework.utilities.iframe_util.IframeUtility;
 
 /**
  * @author Pavel Romanov 11.01.2023
@@ -19,12 +19,10 @@ public class IFramePage {
     }
 
     public String getParentText() {
-        text = BaseElement.findByCss(PARENT_FRAME_TEXT_PATH).getText();
-        return text;
+        return IframeUtility.getFrameText(PARENT_FRAME_TEXT_PATH);
     }
 
     public String getChildText() {
-        text = BaseElement.findByCss(CHILD_FRAME_TEXT_PATH).getText();
-        return text;
+        return IframeUtility.getFrameText(CHILD_FRAME_TEXT_PATH);
     }
 }

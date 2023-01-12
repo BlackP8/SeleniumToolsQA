@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name = "Tests suit" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
+    <parameter name="browser" value="chrome" />
     <test name = "Test case 1">
         <parameter name="test_file" value="src/test/resources/test_case1_data.json" />
         <classes>
@@ -31,6 +32,12 @@
         <parameter name="test_file" value="src/test/resources/test_case4_data.json" />
         <classes>
             <class name = "test_case4.Test4"/>
+        </classes>
+    </test>
+    <test name = "Test case 5">
+        <parameter name="test_file" value="src/test/resources/test_case5_data.json" />
+        <classes>
+            <class name = "test_case5.Test5"/>
         </classes>
     </test>
 </suite>

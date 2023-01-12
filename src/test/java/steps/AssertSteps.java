@@ -25,7 +25,8 @@ public class AssertSteps {
     }
 
     public static void checkAlert(String expectedText) {
-        Assert.assertTrue(AlertUtility.isAlertShown(expectedText),
+        AlertUtility.switchToAlert();
+        Assert.assertTrue(AlertUtility.isAlertTextCorrect(expectedText),
                 "Алерт с текстом " + expectedText +" не открылся.");
     }
 
@@ -64,5 +65,15 @@ public class AssertSteps {
     public static void checkUserDeleted(User user, WebTablesPage webTablesPage) {
         Assert.assertFalse(webTablesPage.isUserAdded(user), "Пользователь User № не удалился из таблицы");
         Assert.assertFalse(webTablesPage.isCountCorrect(), "Количество записей в таблице не изменилось.");
+    }
+
+    public static void checkSliderValue(SliderPage sliderPage, String randomNumber) {
+        Assert.assertTrue(sliderPage.isSliderValueCorrect(randomNumber),
+                "Значение рядом со слайдером не соответствует случайному.");
+    }
+
+    public static void checkProgressBar(ProgressBarPage progressBarPage, String value) {
+        Assert.assertTrue(progressBarPage.stopProgressBar(value),
+                "Значение на полосе загрузки не соответствует возрасту инженера.");
     }
 }

@@ -19,6 +19,7 @@ public class ConfigManager {
     private static JSONObject jsonTestObject;
 
     public static void setConfig() {
+        Log.logUtils(ConfigManager.class.getName() + ": Задаем конфигурационный файл.");
         try(BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_CONFIG_FILE))) {
             Object obj = parser.parse(reader);
             jsonConfObject = (JSONObject)obj;
@@ -29,6 +30,7 @@ public class ConfigManager {
     }
 
     public static JSONObject setTestData(String filePath) {
+        Log.logUtils(ConfigManager.class.getName() + ": Задаем файл с тестовыми данными.");
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             Object obj = parser.parse(reader);
             jsonTestObject = (JSONObject)obj;
@@ -41,6 +43,7 @@ public class ConfigManager {
     }
 
     public static String getConfProperty(String key) {
+        Log.logUtils(ConfigManager.class.getName() + ": Получаем свойство из конфигурационного файла.");
         return (String) jsonConfObject.get(key);
     }
 }

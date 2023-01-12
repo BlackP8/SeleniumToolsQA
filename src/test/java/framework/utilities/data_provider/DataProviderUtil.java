@@ -1,6 +1,8 @@
 package framework.utilities.data_provider;
 
+import framework.logger.Log;
 import framework.utilities.config_util.ConfigManager;
+import framework.utilities.wait_util.WaitUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.testng.ITestContext;
@@ -27,6 +29,7 @@ public class DataProviderUtil {
 
     @DataProvider(name = "dp")
     public Object[][] getData(ITestContext context) {
+        Log.logUtils(DataProviderUtil.class.getName() + ": Загружаем тестовые данные.");
         String testParam = context.getCurrentXmlTest().getParameter(testFile);
         jsonTestObject = ConfigManager.setTestData(testParam);
         HashMap<String, String> hashMap = new LinkedHashMap<>();
@@ -55,6 +58,7 @@ public class DataProviderUtil {
 
     @DataProvider(name = "userData")
     public Object[][] getUser(ITestContext context) {
+        Log.logUtils(DataProviderUtil.class.getName() + ": Загружаем модель данных.");
         String file = context.getCurrentXmlTest().getParameter(testFile);
         String usersParameter = context.getCurrentXmlTest().getParameter(testObjects);
         String fNameParameter = context.getCurrentXmlTest().getParameter(firstName);

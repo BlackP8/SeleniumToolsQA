@@ -11,7 +11,7 @@ public enum BrowserFactory {
 
     private final String browser;
 
-    private BrowserFactory(String browser) {
+    BrowserFactory(String browser) {
         this.browser = browser;
     }
 

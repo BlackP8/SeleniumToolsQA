@@ -13,6 +13,8 @@ public class MainPage extends BaseForm {
             "AlertsFramesWindows button");
     private Button elementsBtn = new Button("//*[@class='category-cards']//*[contains(text(),'Elements')]",
             "Elements button");
+    private Button widgetsBtn = new Button("//*[@class='category-cards']//*[contains(text(),'Widgets')]",
+            "Widgets button");
 
     private static final String MAIN_PAGE_IDENTIFIER = "//*[@class='category-cards']";
     private static final String BUTTON_LOG_TEXT = LogMessages.PRESS_BUTTON.getText();
@@ -35,5 +37,12 @@ public class MainPage extends BaseForm {
         elementsBtn.findElement();
         elementsBtn.scrollToElement();
         elementsBtn.doClick();
+    }
+
+    public void clickWidgetsBtn() {
+        Log.logPages(BUTTON_LOG_TEXT + widgetsBtn.getName());
+        widgetsBtn.findElement();
+        widgetsBtn.scrollToElement();
+        widgetsBtn.doClick();
     }
 }

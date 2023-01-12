@@ -20,4 +20,8 @@ public class Log {
     public static void logElements(String logMessage) {
         logger.debug(logMessage);
     }
+
+    public static void logUtils(String logMessage) {
+        logger.info(logMessage);
+    }
 }

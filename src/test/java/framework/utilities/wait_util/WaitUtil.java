@@ -1,5 +1,6 @@
 package framework.utilities.wait_util;
 
+import framework.logger.Log;
 import framework.utilities.config_util.ConfigManager;
 import framework.driver.DriverManager;
 import org.openqa.selenium.By;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
+import java.time.Duration;
 
 /**
  * @author Pavel Romanov 22.12.2022
@@ -15,21 +16,26 @@ import java.util.List;
 public class WaitUtil {
     private static WebDriverWait wait;
     private static final String WAIT_TIME = ConfigManager.getConfProperty("explicitWaitTime");
+    private static final int WAIT_ATTRIBUTE_TIME = 50;
 
     public WaitUtil() { }
 
     public static WebElement setPresenceWait(String locator) {
+        Log.logUtils(WaitUtil.class.getName() + ": Ждем элемент.");
         wait = new WebDriverWait(DriverManager.getDriver(), Long.parseLong(WAIT_TIME));
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
     }
 
-    public static List<WebElement> setAllPresenceWait(String locator) {
-        wait = new WebDriverWait(DriverManager.getDriver(), Long.parseLong(WAIT_TIME));
-        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(locator)));
-    }
-
     public static void waitForAlert() {
+        Log.logUtils(WaitUtil.class.getName() + ": Ждем алерт.");
         wait = new WebDriverWait(DriverManager.getDriver(), Long.parseLong(WAIT_TIME));
         wait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    public static boolean waitForAttribute(WebElement element, String attribute, String value) {
+        Log.logUtils(WaitUtil.class.getName() + ": Ждем progress bar.");
+        wait = new WebDriverWait(DriverManager.getDriver(), Long.parseLong(WAIT_TIME));
+        wait.pollingEvery(Duration.ofMillis(WAIT_ATTRIBUTE_TIME));
+        return wait.until(ExpectedConditions.attributeToBe(element, attribute, value));
     }
 }

@@ -28,12 +28,13 @@ public abstract class BaseElement {
     }
 
     public void findElement() {
+        Log.logElements("Ищем элемент.");
         element = WaitUtil.setPresenceWait(locator);
         staticElement = WaitUtil.setPresenceWait(locator);
     }
 
     public void doClick() {
-        Log.logElements("Нажатие кнопки.");
+        Log.logElements("Нажимаем кнопку.");
         element.click();
     }
 
@@ -42,17 +43,17 @@ public abstract class BaseElement {
     }
 
     public void scrollToElement() {
+        Log.logElements("Листаем страницу до элемента.");
         executor = (JavascriptExecutor) DriverManager.getDriver();
         executor.executeScript(SCROLL_SCRIPT, element);
     }
 
-    public String getText() {
-        return element.getText();
+    protected static String getAttribute(String attributeName) {
+        return staticElement.getAttribute(attributeName);
     }
 
-    public static WebElement findByCss(String selector) {
-        WebElement element = DriverManager.getDriver().findElement(By.cssSelector(selector));
-        return element;
+    public String getText() {
+        return element.getText();
     }
 
     protected static WebElement getElement() {

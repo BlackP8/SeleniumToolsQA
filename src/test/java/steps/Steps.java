@@ -92,4 +92,24 @@ public class Steps {
     public static void deleteUser(WebTablesPage webTablesPage) {
         webTablesPage.deleteData();
     }
+
+    public static void clickWidgetsBtn(MainPage mainPage) {
+        mainPage.clickWidgetsBtn();
+    }
+
+    public static void clickSliderBtn(WidgetsPage widgetsPage) {
+        widgetsPage.clickSliderBtn();
+    }
+
+    public static void setSlider(SliderPage sliderPage, String randomNumber) {
+        sliderPage.moveSlider(randomNumber);
+    }
+
+    public static void goToProgressBar(SliderPage sliderPage) {
+        sliderPage.clickProgressBarBtn();
+    }
+
+    public static void clickStart(ProgressBarPage progressBarPage) {
+        progressBarPage.clickStartBtn();
+    }
 }

@@ -3,13 +3,10 @@ package test_case1;
 import framework.base.BaseTest;
 import framework.logger.Log;
 import framework.logger.LogMessages;
+import framework.utilities.alert_util.AlertUtility;
 import framework.utilities.data_provider.DataProviderUtil;
 import framework.utilities.text_util.TextUtility;
 import org.testng.annotations.Test;
-import page_objects.AlertsPage;
-import page_objects.AlertsWindowsPage;
-import page_objects.MainPage;
-import steps.AssertSteps;
 import steps.Steps;
 
 /**
@@ -19,47 +16,45 @@ public class Test1 extends BaseTest {
     @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
     public void alertsTest(String alertBtnText, String confirmAlertText, String promptBoxText, String confirmBoxText) {
         Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
-        MainPage mainPage = new MainPage();
-        AssertSteps.checkMainPage(mainPage);
+        Steps.checkMainPage();
 
         Log.logTestSteps("Переходим на форму Alerts.");
-        Steps.clickAlertsFrameWindowsBtn(mainPage);
-        AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
-        Steps.clickAlertsMenuBtn(alertsWindowsPage);
-        AlertsPage alertsPage = new AlertsPage();
-        AssertSteps.checkForm(alertsPage.isAlertsFormAppeared());
+        Steps.clickAlertsFrameWindowsBtn();
+        Steps.clickAlertsMenuBtn();
+        Steps.checkAlertForm();
 
         Log.logTestSteps("Нажимаем на кнопку Click Button to see alert.");
-        Steps.clickSeeAlertBtn(alertsPage);
+        Steps.clickSeeAlertBtn();
         Log.logTestSteps(LogMessages.CHECK_WHAT.getText() + "открыт алерт с текстом " + alertBtnText);
-        AssertSteps.checkAlert(alertBtnText);
+        Steps.checkAlertText(AlertUtility.isAlertTextCorrect(alertBtnText));
 
         Log.logTestSteps("Закрываем алерт.");
-        Steps.clickAlertOk();
+        AlertUtility.clickAlertOk();
         Log.logTestSteps(LogMessages.CHECK_WHAT.getText() + "алерт закрылся.");
-        AssertSteps.checkAlertClosed();
+        Steps.checkAlertClosed(AlertUtility.isAlertClosed());
 
         Log.logTestSteps("Открываем алерт confirm box.");
-        Steps.clickConfirmBoxBtn(alertsPage);
+        Steps.clickConfirmBoxBtn();
         Log.logTestSteps(LogMessages.CHECK_WHAT.getText() + "открыт алерт с текстом " + confirmAlertText);
-        AssertSteps.checkAlert(confirmAlertText);
+        Steps.checkAlertText(AlertUtility.isAlertTextCorrect(confirmAlertText));
 
         Log.logTestSteps("Закрываем алерт.");
-        Steps.clickAlertOk();
+        AlertUtility.clickAlertOk();
         Log.logTestSteps(LogMessages.CHECK_WHAT.getText() + "алерт закрылся.");
-        AssertSteps.checkAlertClosed();
-        AssertSteps.checkBtnText(confirmBoxText, alertsPage);
+        Steps.checkAlertClosed(AlertUtility.isAlertClosed());
+        Steps.checkBtnText(confirmBoxText);
 
         Log.logTestSteps("Открываем алерт с текстовым полем.");
-        Steps.clickPromptBtn(alertsPage);
+        Steps.clickPromptBtn();
         Log.logTestSteps(LogMessages.CHECK_WHAT.getText() + "открыт алерт с текстом " + promptBoxText);
-        AssertSteps.checkAlert(promptBoxText);
+        Steps.checkAlertText(AlertUtility.isAlertTextCorrect(promptBoxText));
 
         Log.logTestSteps("Вводим случайный текст и закрываем алерт.");
         String generatedText = TextUtility.generateText();
-        Steps.enterRandomText(generatedText);
+        AlertUtility.enterText(generatedText);
+        AlertUtility.clickAlertOk();
         Log.logTestSteps(LogMessages.CHECK_WHAT.getText() + "алерт закрылся.");
-        AssertSteps.checkAlertClosed();
-        AssertSteps.compareAlertText(alertsPage, generatedText);
+        Steps.checkAlertClosed(AlertUtility.isAlertClosed());
+        Steps.compareAlertText(generatedText);
     }
 }

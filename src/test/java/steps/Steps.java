@@ -1,7 +1,7 @@
 package steps;
 
-import framework.utilities.alert_util.AlertUtility;
 import framework.utilities.tab_util.TabUtility;
+import org.testng.Assert;
 import page_objects.*;
 import data_model.User;
 
@@ -9,40 +9,79 @@ import data_model.User;
  * @author Pavel Romanov 27.12.2022
  */
 public class Steps {
+    private static MainPage mainPage = new MainPage();
+    private static AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
+    private static AlertsPage alertsPage = new AlertsPage();
+    private static NestedFramesPage nestedFramesPage = new NestedFramesPage();
+    private static FramesPage framesPage = new FramesPage();
 
-    public static void clickAlertsMenuBtn(AlertsWindowsPage alertsWindowsPage) {
+    public static void checkMainPage() {
+        Assert.assertTrue(mainPage.isMainPageAppeared(), "Главная страница не открылась.");
+    }
+
+    public static void checkAlertForm() {
+        Assert.assertTrue(alertsPage.isAlertsFormAppeared(), "Требуемая форма не открылась.");
+    }
+
+    public static void checkNestedFramesForm() {
+        Assert.assertTrue(nestedFramesPage.isNestedFormAppeared(), "Требуемая форма не открылась.");
+    }
+
+    public static void checkFramesForm() {
+        Assert.assertTrue(framesPage.isFramesFormAppeared(), "Требуемая форма не открылась.");
+    }
+
+    public static void compareFramesText() {
+        Assert.assertTrue(framesPage.getBigFrameText().equals(framesPage.getSmallFrameText()),
+                "Надпись из верхнего фрейма не соответствует надписи из нижнего.");
+    }
+
+    public static void checkParentChildFramesText(String expParentFrameText, String expChildFrameText) {
+        Assert.assertTrue(nestedFramesPage.isFrameTextCorrect(expParentFrameText, expChildFrameText),
+                "В центре страницы отсутствуют надписи" + expParentFrameText + " и " + expChildFrameText + ".");
+    }
+
+    public static void clickAlertsMenuBtn() {
         alertsWindowsPage.clickAlertsMenuBtn();
     }
-    public static void clickAlertsFrameWindowsBtn(MainPage mainPage) {
+    public static void clickAlertsFrameWindowsBtn() {
         mainPage.clickAlertsFramesWindowsBtn();
     }
 
-    public static void clickSeeAlertBtn(AlertsPage alertsPage) {
+    public static void clickSeeAlertBtn() {
         alertsPage.clickSeeAlertBtn();
     }
 
-    public static void clickAlertOk() {
-        AlertUtility.clickAlertOk();
-    }
-
-    public static void clickConfirmBoxBtn(AlertsPage alertsPage) {
+    public static void clickConfirmBoxBtn() {
         alertsPage.clickConfirmBtn();
     }
 
-    public static void clickPromptBtn(AlertsPage alertsPage) {
+    public static void checkBtnText(String expectedText) {
+        Assert.assertTrue(alertsPage.isConfirmBoxTextCorrect(expectedText),
+                "Рядом с кнопкой не появилась надпись " + expectedText + ".");
+    }
+
+    public static void clickPromptBtn() {
         alertsPage.clickPromptBtn();
     }
 
-    public static void enterRandomText(String generatedText) {
-        AlertUtility.enterText(generatedText);
-        clickAlertOk();
+    public static void compareAlertText(String generatedText) {
+        Assert.assertTrue(alertsPage.isPromptBoxTextCorrect(generatedText), "Рядом с кнопкой не появилась надпись.");
     }
 
-    public static void clickNestedFramesBtn(AlertsWindowsPage alertsWindowsPage) {
+    public static void checkAlertText(boolean actualResult) {
+        Assert.assertTrue(actualResult, "Алерт с текстом не открылся.");
+    }
+
+    public static void checkAlertClosed(boolean actualResult) {
+        Assert.assertTrue(actualResult, "Alert не закрылся.");
+    }
+
+    public static void clickNestedFramesBtn() {
         alertsWindowsPage.clickNestedFramesBtn();
     }
 
-    public static void clickFramesBtn(NestedFramesPage nestedFramesPage) {
+    public static void clickFramesBtn() {
         nestedFramesPage.clickFramesMenuBtn();
     }
 
@@ -76,7 +115,7 @@ public class Steps {
         elementsPage.clickWebElementsBtn();
     }
 
-    public static void clickElementsBtn(MainPage mainPage) {
+    public static void clickElementsBtn() {
         mainPage.clickElementsBtn();
     }
 
@@ -93,7 +132,7 @@ public class Steps {
         webTablesPage.deleteData();
     }
 
-    public static void clickWidgetsBtn(MainPage mainPage) {
+    public static void clickWidgetsBtn() {
         mainPage.clickWidgetsBtn();
     }
 

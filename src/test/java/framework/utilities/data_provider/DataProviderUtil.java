@@ -36,13 +36,12 @@ public class DataProviderUtil {
 
         if (jsonTestObject != null) {
             Set<String> jsonObjKeys = jsonTestObject.keySet();
-
             for (String jsonObjKey: jsonObjKeys) {
                 hashMap.put(jsonObjKey, (String) jsonTestObject.get(jsonObjKey));
             }
         }
         else {
-            throw new RuntimeException();
+            Log.logUtils("Тестовые данные не определены.");
         }
 
         String[] testData = hashMap.values().toArray(new String[hashMap.size()]);
@@ -75,7 +74,8 @@ public class DataProviderUtil {
         if (usersList != null) {
             for (int i = 0; i < usersList.size(); i++) {
                 jsonTestObject = (JSONObject) usersList.get(i);
-                user = new User(jsonTestObject.get(fNameParameter).toString(), jsonTestObject.get(lNameParameter).toString(),
+                user = User.builder().build();
+                        new User(jsonTestObject.get(fNameParameter).toString(), jsonTestObject.get(lNameParameter).toString(),
                         jsonTestObject.get(emailParameter).toString(), jsonTestObject.get(ageParameter).toString(),
                         jsonTestObject.get(salaryParameter).toString(), jsonTestObject.get(depParameter).toString());
                 users.add(user);

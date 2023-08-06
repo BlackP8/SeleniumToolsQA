@@ -24,9 +24,13 @@ public class IframeUtility {
         DriverManager.getDriver().switchTo().frame(index);
     }
 
-    public static String getFrameText(String location) {
-        Log.logUtils(IframeUtility.class.getName() + ": Получаем текст из фрейма.");
-        String text = DriverManager.getDriver().findElement(By.cssSelector(location)).getText();
-        return text;
-    }
+//    public static String getFrameText(String location) {
+//        Log.logUtils(IframeUtility.class.getName() + ": Получаем текст из фрейма.");
+//        return DriverManager.getDriver().findElement(By.cssSelector(location)).getText();
+//    }
+
+//    public static String getFrameText(By locator) {
+//        Log.logUtils(IframeUtility.class.getName() + ": Получаем текст из фрейма.");
+//        return DriverManager.getDriver().findElement(locator).getText();
+//    }
 }

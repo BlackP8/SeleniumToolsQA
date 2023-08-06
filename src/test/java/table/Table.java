@@ -15,11 +15,11 @@ public class Table extends BaseElement {
     private static int index;
     private static List<WebElement> rowsList;
 
-    public Table(String locator, String name) {
+    public Table(By locator, String name) {
         super(locator, name);
     }
 
-    public Table(String locator) {
+    public Table(By locator) {
         super(locator);
     }
 

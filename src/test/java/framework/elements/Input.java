@@ -2,6 +2,7 @@ package framework.elements;
 
 import framework.base.BaseElement;
 import framework.logger.Log;
+import org.openqa.selenium.By;
 
 /**
  * @author Pavel Romanov 25.12.2022
@@ -9,7 +10,7 @@ import framework.logger.Log;
 public class Input extends BaseElement {
     private static final String VALUE_ATTRIBUTE = "value";
 
-    public Input(String locator, String name) {
+    public Input(By locator, String name) {
         super(locator, name);
     }
 

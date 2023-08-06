@@ -16,13 +16,11 @@ public class ConfigManager {
     private static final String PATH_TO_CONFIG_FILE = "src/test/resources/configuration.json";
     private static JSONParser parser = new JSONParser();
     private static JSONObject jsonConfObject;
-    private static JSONObject jsonTestObject;
 
     public static void setConfig() {
         Log.logUtils(ConfigManager.class.getName() + ": Задаем конфигурационный файл.");
         try(BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_CONFIG_FILE))) {
-            Object obj = parser.parse(reader);
-            jsonConfObject = (JSONObject)obj;
+            jsonConfObject = (JSONObject) parser.parse(reader);
         }
         catch (IOException | ParseException e) {
             Log.logElements(e.getMessage());
@@ -32,9 +30,7 @@ public class ConfigManager {
     public static JSONObject setTestData(String filePath) {
         Log.logUtils(ConfigManager.class.getName() + ": Задаем файл с тестовыми данными.");
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            Object obj = parser.parse(reader);
-            jsonTestObject = (JSONObject)obj;
-            return jsonTestObject;
+            return (JSONObject) parser.parse(reader);
         }
         catch (IOException | ParseException e) {
             Log.logElements(e.getMessage());

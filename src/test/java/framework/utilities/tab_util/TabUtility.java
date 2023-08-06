@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class TabUtility {
     private static String originalWindow = DriverManager.getDriver().getWindowHandle();
-    private static final String WAIT = ConfigManager.getConfProperty("implicitWaitTime");
+//    private static final String WAIT = ConfigManager.getConfProperty("implicitWaitTime");
 
     public static void changeTab() {
         Log.logUtils(TabUtility.class.getName() + ": Переключаемся на другую вкладку.");
-        DriverManager.getDriver().manage().timeouts().implicitlyWait(Long.parseLong(WAIT), TimeUnit.SECONDS);
+//        DriverManager.getDriver().manage().timeouts().implicitlyWait(Long.parseLong(WAIT), TimeUnit.SECONDS);
         for (String windowHandle : DriverManager.getDriver().getWindowHandles()) {
             if(!originalWindow.contentEquals(windowHandle)) {
                 DriverManager.getDriver().switchTo().window(windowHandle);
@@ -26,7 +26,7 @@ public class TabUtility {
 
     public static String getTabURL() {
         Log.logUtils(TabUtility.class.getName() + ": Получаем URL текущей вкладки.");
-        DriverManager.getDriver().manage().timeouts().implicitlyWait(Long.parseLong(WAIT), TimeUnit.SECONDS);
+//        DriverManager.getDriver().manage().timeouts().implicitlyWait(Long.parseLong(WAIT), TimeUnit.SECONDS);
         return DriverManager.getDriver().getCurrentUrl();
     }
 
@@ -37,7 +37,7 @@ public class TabUtility {
 
     public static void switchTab() {
         Log.logUtils(TabUtility.class.getName() + ": Переключаемся на другую вкладку.");
-        DriverManager.getDriver().manage().timeouts().implicitlyWait(Long.parseLong(WAIT), TimeUnit.SECONDS);
+//        DriverManager.getDriver().manage().timeouts().implicitlyWait(Long.parseLong(WAIT), TimeUnit.SECONDS);
         DriverManager.getDriver().switchTo().window(originalWindow);
     }
 }

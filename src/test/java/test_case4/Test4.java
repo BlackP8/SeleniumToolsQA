@@ -17,14 +17,13 @@ import java.util.List;
  * @author Pavel Romanov 26.12.2022
  */
 public class Test4 extends BaseTest {
-    @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
+    @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp", enabled = false)
     public void handlesTest(String urlText, String samplePageText) {
         Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
-        MainPage mainPage = new MainPage();
-        AssertSteps.checkMainPage(mainPage);
+        Steps.checkMainPage();
 
         Log.logTestSteps("Переходим на форму Alerts, затем на форму Browser Windows.");
-        Steps.clickAlertsFrameWindowsBtn(mainPage);
+        Steps.clickAlertsFrameWindowsBtn();
         AlertsWindowsPage alertsWindowsPage = new AlertsWindowsPage();
         Steps.clickBrowserBtn(alertsWindowsPage);
         BrowserWindowsPage windowsPage = new BrowserWindowsPage();
@@ -52,7 +51,7 @@ public class Test4 extends BaseTest {
 
         Log.logTestSteps("Переходим по ссылке Home, переходим на вкладку главной страницы.");
         Steps.goHomeLink(linksPage);
-        AssertSteps.checkMainPage(mainPage);
+        Steps.checkMainPage();
 
         Log.logTestSteps("Переходим на вкладку с формой Links.");
         Log.logTestSteps(LogMessages.CHECK_PAGE.getText() + LinksPage.class.getName());

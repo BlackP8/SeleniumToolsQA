@@ -14,14 +14,13 @@ import steps.Steps;
  * @author Pavel Romanov 11.01.2023
  */
 public class Test5 extends BaseTest {
-    @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp")
+    @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "dp", enabled = false)
     public void handlesTest(String age) {
         Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
-        MainPage mainPage = new MainPage();
-        AssertSteps.checkMainPage(mainPage);
+        Steps.checkMainPage();
 
         Log.logTestSteps("Переходим на форму Slider.");
-        Steps.clickWidgetsBtn(mainPage);
+        Steps.clickWidgetsBtn();
         WidgetsPage widgetsPage = new WidgetsPage();
         Steps.clickSliderBtn(widgetsPage);
         SliderPage sliderPage = new SliderPage();

@@ -1,17 +1,19 @@
 package framework.base;
 
 import framework.utilities.wait_util.WaitUtil;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 
 /**
  * @author Pavel Romanov 22.12.2022
  */
 public abstract class BaseForm {
+    private By locator;
 
-    public BaseForm() { }
+    protected BaseForm(By locator) {this.locator = locator; }
 
-    protected static boolean isPageAppeared(String identifier) {
-        WebElement expectedEl = WaitUtil.setPresenceWait(identifier);
-        return expectedEl.isDisplayed();
+    protected BaseForm() {}
+
+    protected boolean isPageAppeared() {
+        return WaitUtil.setPresenceWait(locator).isDisplayed();
     }
 }

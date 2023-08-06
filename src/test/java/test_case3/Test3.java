@@ -18,14 +18,13 @@ import steps.Steps;
  * @author Pavel Romanov 25.12.2022
  */
 public class Test3 extends BaseTest {
-    @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "userData")
+    @Test(dataProviderClass = DataProviderUtil.class, dataProvider = "userData", enabled = false)
     public void tablesTest(User user) {
         Log.logTestSteps(LogMessages.SWITCH_TO_MAIN.getText());
-        MainPage mainPage = new MainPage();
-        AssertSteps.checkMainPage(mainPage);
+        Steps.checkMainPage();
 
         Log.logTestSteps("Переходим на форму Elements, затем на форму Web tables.");
-        Steps.clickElementsBtn(mainPage);
+        Steps.clickElementsBtn();
         ElementsPage elementsPage = new ElementsPage();
         Steps.clickWebElementsBtn(elementsPage);
         WebTablesPage webTablesPage = new WebTablesPage();

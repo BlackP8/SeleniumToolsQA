@@ -1,28 +1,32 @@
 package page_objects;
 
+import framework.elements.Body;
 import framework.elements.Heading;
+import framework.elements.Paragraph;
 import framework.utilities.iframe_util.IframeUtility;
+import org.openqa.selenium.By;
 
 /**
  * @author Pavel Romanov 11.01.2023
  */
 public class IFramePage {
-    private static String text;
-    private static Heading heading = new Heading("//*[@id='sampleHeading']");
-    private static final String PARENT_FRAME_TEXT_PATH = "body";
-    private static final String CHILD_FRAME_TEXT_PATH = "p";
+    private Body frameBody = new Body(By.cssSelector("body"));
+    private Paragraph frameParagraph = new Paragraph(By.cssSelector("p"));
+    private static Heading heading = new Heading(By.id("sampleHeading"));
+    private static final int CHILD_FRAME_INDEX = 0;
 
-    public String getFrameText() {
-        heading.findElement();
-        text = heading.getText();
-        return text;
+    public String getFrameHeadingText() {
+        return heading.getText();
     }
 
-    public String getParentText() {
-        return IframeUtility.getFrameText(PARENT_FRAME_TEXT_PATH);
+    public String getChildFrameText() {
+        IframeUtility.switchToFrame(CHILD_FRAME_INDEX);
+        String childFrameText = frameParagraph.getText();
+        IframeUtility.switchBack();
+        return childFrameText;
     }
 
-    public String getChildText() {
-        return IframeUtility.getFrameText(CHILD_FRAME_TEXT_PATH);
+    public String getParentFrameText() {
+        return frameBody.getText();
     }
 }

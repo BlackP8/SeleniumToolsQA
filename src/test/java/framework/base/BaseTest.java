@@ -1,8 +1,8 @@
 package framework.base;
 
+import framework.driver.DriverManager;
 import framework.logger.Log;
 import framework.utilities.config_util.ConfigManager;
-import framework.driver.DriverManager;
 import org.testng.annotations.*;
 
 /**
@@ -17,7 +17,7 @@ public abstract class BaseTest {
     public void setup(String browser) {
         Log.logTestSteps("Инициализируем драйвер.");
         ConfigManager.setConfig();
-        DriverManager.getInstance(browser);
+        DriverManager.createInstance(browser);
         mainPageURL = ConfigManager.getConfProperty(MAIN_PAGE_CONFIG_PROPERTY);
         DriverManager.openURL(mainPageURL);
     }

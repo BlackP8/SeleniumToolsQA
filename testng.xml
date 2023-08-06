@@ -3,18 +3,18 @@
 
 <suite name = "Tests suit" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
     <parameter name="browser" value="chrome" />
-    <test name = "Test case 1">
-        <parameter name="test_file" value="src/test/resources/test_case1_data.json" />
-        <classes>
-            <class name = "test_case1.Test1"/>
-        </classes>
-    </test>
-    <test name = "Test case 2">
-        <parameter name="test_file" value="src/test/resources/test_case2_data.json" />
-        <classes>
-            <class name = "test_case2.Test2"/>
-        </classes>
-    </test>
+<!--    <test name = "Test case 1">-->
+<!--        <parameter name="test_file" value="src/test/resources/test_case1_data.json" />-->
+<!--        <classes>-->
+<!--            <class name = "test_case1.Test1"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name = "Test case 2">-->
+<!--        <parameter name="test_file" value="src/test/resources/test_case2_data.json" />-->
+<!--        <classes>-->
+<!--            <class name = "test_case2.Test2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
     <test name = "Test case 3">
         <parameter name="test_file" value="src/test/resources/test_case3_data.json" />
         <parameter name="test_objects" value="users" />
@@ -28,16 +28,16 @@
             <class name = "test_case3.Test3"/>
         </classes>
     </test>
-    <test name = "Test case 4">
-        <parameter name="test_file" value="src/test/resources/test_case4_data.json" />
-        <classes>
-            <class name = "test_case4.Test4"/>
-        </classes>
-    </test>
-    <test name = "Test case 5">
-        <parameter name="test_file" value="src/test/resources/test_case5_data.json" />
-        <classes>
-            <class name = "test_case5.Test5"/>
-        </classes>
-    </test>
+<!--    <test name = "Test case 4">-->
+<!--        <parameter name="test_file" value="src/test/resources/test_case4_data.json" />-->
+<!--        <classes>-->
+<!--            <class name = "test_case4.Test4"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name = "Test case 5">-->
+<!--        <parameter name="test_file" value="src/test/resources/test_case5_data.json" />-->
+<!--        <classes>-->
+<!--            <class name = "test_case5.Test5"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

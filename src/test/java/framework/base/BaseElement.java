@@ -13,29 +13,28 @@ import org.openqa.selenium.WebElement;
 public abstract class BaseElement {
     private WebElement element;
     private String name;
-    private String locator;
+    private By locator;
     private static WebElement staticElement;
-    private static JavascriptExecutor executor;
     private static final String SCROLL_SCRIPT = "arguments[0].scrollIntoView();";
 
-    protected BaseElement(String locator, String name) {
+    protected BaseElement(By locator, String name) {
         this.name = name;
         this.locator = locator;
     }
 
-    protected BaseElement(String locator) {
+    protected BaseElement(By locator) {
         this.locator = locator;
     }
 
-    public void findElement() {
-        Log.logElements("Ищем элемент.");
-        element = WaitUtil.setPresenceWait(locator);
-        staticElement = WaitUtil.setPresenceWait(locator);
-    }
+//    public void findElement() {
+//        Log.logElements("Ищем элемент.");
+//        element = WaitUtil.setPresenceWait(locator);
+//        staticElement = WaitUtil.setPresenceWait(locator);
+//    }
 
     public void doClick() {
         Log.logElements("Нажимаем кнопку.");
-        element.click();
+        WaitUtil.setPresenceWait(locator).click();
     }
 
     public String getName() {
@@ -44,8 +43,7 @@ public abstract class BaseElement {
 
     public void scrollToElement() {
         Log.logElements("Листаем страницу до элемента.");
-        executor = (JavascriptExecutor) DriverManager.getDriver();
-        executor.executeScript(SCROLL_SCRIPT, element);
+        ((JavascriptExecutor) DriverManager.getDriver()).executeScript(SCROLL_SCRIPT, WaitUtil.setPresenceWait(locator));
     }
 
     protected static String getAttribute(String attributeName) {
@@ -53,7 +51,7 @@ public abstract class BaseElement {
     }
 
     public String getText() {
-        return element.getText();
+        return WaitUtil.setPresenceWait(locator).getText();
     }
 
     protected static WebElement getElement() {

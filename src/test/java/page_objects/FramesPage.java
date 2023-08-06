@@ -4,33 +4,37 @@ import framework.base.BaseForm;
 import framework.logger.Log;
 import framework.logger.LogMessages;
 import framework.utilities.iframe_util.IframeUtility;
+import org.openqa.selenium.By;
 
 /**
  * @author Pavel Romanov 23.12.2022
  */
 public class FramesPage extends BaseForm {
-    private static final String FRAMES_FORM_IDENTIFIER = "//*[@id='framesWrapper']";
-    private static final String HEADING_PATH = "//*[@id='sampleHeading']";
+    private static final By FRAMES_FORM_IDENTIFIER = By.id("framesWrapper");
     private static final String BIG_FRAME_ID = "frame1";
     private static final String SMALL_FRAME_ID = "frame2";
     private static final String PAGE_LOG_TEXT = LogMessages.CHECK_PAGE.getText();
-    private static final String CHECK_LOG_TEXT = LogMessages.CHECK_WHAT.getText();
+
+    public FramesPage() {
+        super(FRAMES_FORM_IDENTIFIER);
+    }
 
     public boolean isFramesFormAppeared() {
         Log.logPages(PAGE_LOG_TEXT + FramesPage.class.getName());
-        return BaseForm.isPageAppeared(FRAMES_FORM_IDENTIFIER);
+        return isPageAppeared();
     }
 
-    public boolean isFramesTextCorrect() {
-        Log.logPages(CHECK_LOG_TEXT + "что надпись из верхнего фрейма соответствует надписи из нижнего.");
+    public String getBigFrameText() {
         IframeUtility.switchToFrame(BIG_FRAME_ID);
-        IFramePage bigFrame = new IFramePage();
-        String bigFrameText = bigFrame.getFrameText();
+        String bigFrameText = new IFramePage().getFrameHeadingText();
         IframeUtility.switchBack();
+        return bigFrameText;
+    }
+
+    public String getSmallFrameText() {
         IframeUtility.switchToFrame(SMALL_FRAME_ID);
-        IFramePage smallFrame = new IFramePage();
-        String smallFrameText = smallFrame.getFrameText();
+        String smallFrameText = new IFramePage().getFrameHeadingText();
         IframeUtility.switchBack();
-        return bigFrameText.equals(smallFrameText);
+        return smallFrameText;
     }
 }

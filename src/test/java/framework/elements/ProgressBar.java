@@ -3,6 +3,7 @@ package framework.elements;
 import framework.base.BaseElement;
 import framework.logger.Log;
 import framework.utilities.wait_util.WaitUtil;
+import org.openqa.selenium.By;
 
 /**
  * @author Pavel Romanov 12.01.2023
@@ -10,7 +11,7 @@ import framework.utilities.wait_util.WaitUtil;
 public class ProgressBar extends BaseElement {
     private static final String CURRENT_VALUE = "aria-valuenow";
 
-    public ProgressBar(String locator, String name) {
+    public ProgressBar(By locator, String name) {
         super(locator, name);
     }
 

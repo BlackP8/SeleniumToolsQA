@@ -2,6 +2,7 @@ package framework.elements;
 
 import framework.base.BaseElement;
 import framework.logger.Log;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 /**
@@ -10,7 +11,7 @@ import org.openqa.selenium.Keys;
 public class Slider extends BaseElement {
     private static final String VALUE_ATTRIBUTE = "value";
 
-    public Slider(String locator, String name) {
+    public Slider(By locator, String name) {
         super(locator, name);
     }
 

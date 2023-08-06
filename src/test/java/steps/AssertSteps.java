@@ -16,41 +16,8 @@ public class AssertSteps {
         Assert.assertTrue(checkResult, "Требуемая форма не открылась.");
     }
 
-    public static void checkMainPage(MainPage mainPage) {
-        Assert.assertTrue(mainPage.isMainPageAppeared(), "Главная страница не открылась.");
-    }
-
     public static void checkRegFormOpened(boolean checkResult) {
         Assert.assertTrue(checkResult, "На странице не появилась форма Registrarion Form.");
-    }
-
-    public static void checkAlert(String expectedText) {
-        AlertUtility.switchToAlert();
-        Assert.assertTrue(AlertUtility.isAlertTextCorrect(expectedText),
-                "Алерт с текстом " + expectedText +" не открылся.");
-    }
-
-    public static void checkAlertClosed() {
-        Assert.assertTrue(AlertUtility.isAlertClosed(), "Alert не закрылся.");
-    }
-
-    public static void checkBtnText(String expectedText, AlertsPage alertsPage) {
-        Assert.assertTrue(alertsPage.isConfirmBoxTextCorrect(expectedText),
-                "Рядом с кнопкой не появилась надпись " + expectedText + ".");
-    }
-
-    public static void compareAlertText(AlertsPage alertsPage, String generatedText) {
-        Assert.assertTrue(alertsPage.isPromptBoxTextCorrect(generatedText), "Рядом с кнопкой не появилась надпись.");
-    }
-
-    public static void checkFrameText(NestedFramesPage nestedFramesPage, String parentFrameText, String childFrameText) {
-        Assert.assertTrue(nestedFramesPage.isFrameTextCorrect(parentFrameText, childFrameText),
-                "В центре страницы отсутствуют надписи" + parentFrameText + " и " + childFrameText + ".");
-    }
-
-    public static void compareFramesText(FramesPage framesPage) {
-        Assert.assertTrue(framesPage.isFramesTextCorrect(),
-                "Надпись из верхнего фрейма не соответствует надписи из нижнего.");
     }
 
     public static void checkSamplePageText(List<String> data, SamplePage samplePage, String tabURL) {

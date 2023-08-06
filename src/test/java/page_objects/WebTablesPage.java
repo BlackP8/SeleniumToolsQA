@@ -3,6 +3,7 @@ package page_objects;
 import framework.base.BaseForm;
 import framework.elements.Button;
 import framework.elements.Span;
+import org.openqa.selenium.By;
 import table.Table;
 import framework.logger.Log;
 import framework.logger.LogMessages;
@@ -15,13 +16,12 @@ import java.util.List;
  * @author Pavel Romanov 25.12.2022
  */
 public class WebTablesPage extends BaseForm {
-    private Button addBtn = new Button("//*[@id='addNewRecordButton']", "Add button");
-    private Table usersTable = new Table("//*[@class='rt-table']");
+    private Button addBtn = new Button(By.id("addNewRecordButton"), "Add button");
+    private Table usersTable = new Table(By.className("rt-table"));
     private Span deleteBtn;
-
     private static int usersCount;
     private static List<User> users;
-    private static final String WEB_TABLES_PAGE_IDENTIFIER = "//*[@class='web-tables-wrapper']";
+    private static final By WEB_TABLES_PAGE_IDENTIFIER = By.className("web-tables-wrapper");
     private static final String TABLE_ROWS_PATH = "//*[@class='rt-tbody']//*[@class='rt-tr-group']";
     private static final String TABLE_COLUMNS_PATH = "//*[@class='rt-tr']//*[contains(@class,'th')]";
     private static final String TABLE_CELLS_PATH = "//*[@class='rt-tr-group']//*[@class='rt-td']";
@@ -31,14 +31,17 @@ public class WebTablesPage extends BaseForm {
     private static final String LOG_TEXT = LogMessages.PRESS_BUTTON.getText();
     private static final String CHECK_LOG_TEXT = LogMessages.CHECK_WHAT.getText();
 
+    public WebTablesPage() {
+        super(WEB_TABLES_PAGE_IDENTIFIER);
+    }
+
     public boolean isWebTablesFormAppeared() {
         Log.logPages(PAGE_LOG_TEXT + WebTablesPage.class.getName());
-        return BaseForm.isPageAppeared(WEB_TABLES_PAGE_IDENTIFIER);
+        return isPageAppeared();
     }
 
     public void clickAddBtn() {
         Log.logPages(LOG_TEXT + addBtn.getName());
-        addBtn.findElement();
         addBtn.scrollToElement();
         addBtn.doClick();
     }
@@ -47,7 +50,6 @@ public class WebTablesPage extends BaseForm {
         Log.logPages(CHECK_LOG_TEXT + "пользователь добавлен.");
         boolean result = false;
         users = new ArrayList<>();
-        usersTable.findElement();
         users = usersTable.checkData(TABLE_ROWS_PATH, TABLE_CELLS_PATH, TABLE_COLUMNS_PATH, users);
 
         if (users.contains(user)) {
@@ -58,10 +60,9 @@ public class WebTablesPage extends BaseForm {
     }
 
     public void deleteData() {
-        deleteBtn = new Span(String.format(DELETE_USER_BUTTON_PATH, usersTable.getIndex()),
+        deleteBtn = new Span(By.xpath(String.format(DELETE_USER_BUTTON_PATH, usersTable.getIndex())),
                 DELETE_USER_BUTTON_NAME);
         Log.logPages(LOG_TEXT + deleteBtn.getName());
-        deleteBtn.findElement();
         deleteBtn.scrollToElement();
         deleteBtn.doClick();
     }
